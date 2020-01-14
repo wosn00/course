@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>选择题</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <!--导航样式-->
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <!--layui样式-->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <!--答题卡样式-->
+    <link rel="stylesheet" href="/css/choice-detail.css">
+    <!--导航和表单 依赖 element 模块，否则无法进行功能性操作-->
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+        });
+    </script>
+    <!--jq-->
+    <script type="text/javascript" src="/js/chapter/jquery.min.js"></script>
+    <!--消息提示组件-->
+    <script type="text/javascript" src="/js/message/message.js"></script>
+    <script type="text/javascript" src="/js/message/messageIE.js"></script>
+    <link rel="stylesheet" href="/css/message.css"/>
+    <!--自定义js-->
+    <script type="text/javascript" src="/js/summary_detail.js"></script>
+    <!--百分比显示-->
+    <link rel="stylesheet" href="/css/percentage.css"/>
+</head>
+<body>
+<div class="layui-row">
+<ul class="layui-nav " lay-filter="">
+    <li class="layui-nav-item layui-nav-item-1 layui-this"><a href="">课程主页</a></li>
+    <li class="layui-nav-item"><a href="">个人中心</a></li>
+    <li class="layui-nav-item">
+        <a href="javascript:;"></a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="">修改信息</a></dd>
+            <dd><a href="">退出登录</a></dd>
+        </dl>
+    </li>
+</ul>
+</div>
+<div class="layui-container">
+    <div class="layui-row">
+        <span id="getId" style="display: none" th:text="${session.summaryDetail.id}"></span>
+        <span id="getCourse" style="display: none" th:text="${session.summaryDetail.course}"></span>
+        <span id="getChapter" style="display: none" th:text="${session.summaryDetail.chapter}"></span>
+        <span id="getCountno" style="display: none" th:text="${session.summaryDetail.countno}"></span>
+        <span id="countNum" style="display: none"></span>
+
+        <div class="tile">
+            <div class="layer-figure">
+                <h3 class="title">简答题</h3>
+            </div>
+            <div class="layer-text">
+                <div th:text="${session.summaryDetail.countno+'. '+session.summaryDetail.title}" style="color: #2E2D3C"></div><br/><br/>
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <textarea name="answer" required lay-verify="required" placeholder="请输入您的答案" class="layui-textarea"></textarea>
+
+                    </div>
+                </form>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button onclick="judge()" class="layui-btn layui-btn-radius layui-btn-normal" lay-submit lay-filter="formDemo" style="margin-top: 3%;width: 100px">提交</button>
+                        </div>
+                    </div>
+                <!--百分比显示-->
+                <div id="showPercent" style="display: none">
+                    <span style="display: block">准确率：</span>
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" style="display: none;">
+                    <symbol id="wave">
+                        <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
+                        <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"></path>
+                        <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"></path>
+                        <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
+                    </symbol>
+                </svg>
+                    <div class="box">
+                        <div class="percent">
+                            <div class="percentNum" id="count">0</div>
+                            <div class="percentB">%</div>
+                        </div>
+                        <div id="water" class="water">
+                            <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
+                                <use xlink:href="#wave"></use>
+                            </svg>
+                            <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
+                                <use xlink:href="#wave"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div id="true-answer" style="margin-bottom: 5%"></div>
+                <button  type="button" class="layui-btn layui-btn-radius layui-btn-primary" style="float: right">
+                 <a onclick="return verificationCountnum();" th:href="@{'/summary_detail/'+${session.summaryDetail.course}+'/'+${session.summaryDetail.chapter}+'/'+${session.summaryDetail.id}(countno=${session.summaryDetail.countno+1})}" style="display: block;width: 100px">
+                     下一题
+                 </a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

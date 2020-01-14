@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>课程中心</title>
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <!--layui-->
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <!--自定义-->
+    <link rel="stylesheet" href="css/nav.css">
+    <!--轮播-->
+    <link rel="stylesheet" href="css/lunbo.css">
+
+    <script>
+        //注意：导航 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+    </script>
+    <link  type="text/css" href="css/tab.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+    <script type="text/javascript" src="js/tab.js"></script>
+</head>
+<body style="background-color: #dcdcdc">
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item"><a>Welcome !</a></li>
+    <li style="float: right" class="layui-nav-item">
+        <a href="javascript:;" th:text="${session.user.name}"></a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="">修改信息</a></dd>
+            <dd><a href="">退出登录</a></dd>
+        </dl>
+    </li>
+    <li style="float: right" class="layui-nav-item"><a href="">个人中心</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
+    <li style="float: right" class="layui-nav-item layui-this"><a href="">课程主页</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/background">后台</a></li>
+
+</ul>
+
+
+<!--轮播-->
+<div class="shutter">
+    <div class="shutter-img">
+        <a data-shutter-title="Iron Man"><img src="images/lunbo/shutter_1.jpg" alt="#"></a>
+        <a data-shutter-title="Super Man"><img src="images/lunbo/shutter_2.jpg" alt="#"></a>
+        <a data-shutter-title="The Hulk"><img src="images/lunbo/shutter_3.jpg" alt="#"></a>
+        <a data-shutter-title="The your"><img src="images/lunbo/shutter_4.jpg" alt="#"></a>
+    </div>
+    <ul class="shutter-btn">
+        <li class="prev"></li>
+        <li class="next"></li>
+    </ul>
+    <div class="shutter-desc">
+        <p>Iron Man</p>
+    </div>
+</div>
+<script src="js/lunbo/jquery.min.js"></script>
+<script src="js/lunbo/velocity.js"></script>
+<script src="js/lunbo/shutter.js"></script>
+<script src="js/main.js"></script>
+<script>
+    $(function () {
+        $('.shutter').shutter({
+            shutterW: 950, // 容器宽度
+            shutterH: 335, // 容器高度
+            isAutoPlay: true, // 是否自动播放
+            playInterval: 3000, // 自动播放时间
+            curDisplay: 3, // 当前显示页
+            fullPage: false // 是否全屏展示
+        });
+    });
+</script>
+
+
+<!--选项卡-->
+<div class="soft_function">
+
+    <div class="soft_con_icon">
+        <ul>
+            <li><a id="pic_fun_adm" ><img src="images/tab/pic_fun_adm_hover.gif" width="150" height="150"/><p style="color:#008dd9">计算机组成原理</p></a></li>
+            <li><a id="pic_fun_crm" ><img  src="images/tab/pic_fun_crm.gif" width="150" height="150"/><p>数据结构</p></a></li>
+            <li><a id="pic_fun_project" ><img  src="images/tab/pic_fun_project.gif" width="150" height="150"/><p>C类选项</p></a></li>
+            <li><a id="pic_fun_k"><img  src="images/tab/pic_fun_k.gif" width="150" height="150"/><p>D类选项</p></a></li>
+            <li><a id="pic_fun_mobile"><img  src="images/tab/pic_fun_mobile.gif" width="150" height="150"/><p>E类选项</p></a></li>
+        </ul>
+    </div>
+
+    <div class="soft_con1" style="background:url(images/tab/line_select_001.gif);"></div>
+
+    <div class="soft_con">
+
+        <div id="xzgl" class="soft_con2">
+            <div class="function1 jizuPractice">
+                <img src="images/tab/pic_fun_adm_detailed_001.gif"/>
+                <p class="p1">练习模式</p>
+                <p class="p2">选择章节进入答题</p>
+            </div>
+            <div class="function1 jizuExam">
+                <img src="images/tab/pic_fun_adm_detailed_002.gif"/>
+                <p class="p1">考试模式</p>
+                <p class="p2">随机生成试题</p>
+            </div>
+        </div>
+        <div id="crm" class="soft_con2" style="display:none">
+            <div class="function1">
+                <img src="images/tab/pic_fun_k_detailed_004.gif"/>
+                <p class="p1">练习模式</p>
+                <p class="p2">选择章节进入答题.</p>
+            </div>
+            <div class="function1">
+                <img src="images/tab/pic_fun_crm_detailed_002.gif"/>
+                <p class="p1">考试模式</p>
+                <p class="p2">随机生成试题</p>
+            </div>
+        </div>
+        <div id="xmgl" class="soft_con2" style="display:none">
+        </div>
+        <div id="zsgl" class="soft_con2" style="display:none">
+        </div>
+        <div id="ydbg" class="soft_con2" style="display:none">
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>选择题</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <!--导航样式-->
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <!--layui样式-->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <!--答题卡样式-->
+    <link rel="stylesheet" href="/css/choice-detail.css">
+    <!--导航和表单 依赖 element 模块，否则无法进行功能性操作-->
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+        });
+    </script>
+    <!--jq-->
+    <script type="text/javascript" src="/js/chapter/jquery.min.js"></script>
+    <!--消息提示组件-->
+    <script type="text/javascript" src="/js/message/message.js"></script>
+    <script type="text/javascript" src="/js/message/messageIE.js"></script>
+    <link rel="stylesheet" href="/css/message.css"/>
+    <!--自定义js-->
+    <script type="text/javascript" src="/js/choice_detail.js"></script>
+</head>
+<body>
+<div class="layui-row">
+<ul class="layui-nav " lay-filter="">
+    <li class="layui-nav-item layui-nav-item-1 layui-this"><a href="">课程主页</a></li>
+    <li class="layui-nav-item"><a href="">个人中心</a></li>
+    <li class="layui-nav-item">
+        <a href="javascript:;"></a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="">修改信息</a></dd>
+            <dd><a href="">退出登录</a></dd>
+        </dl>
+    </li>
+</ul>
+</div>
+<div class="layui-container">
+    <div class="layui-row">
+        <span id="getId" style="display: none" th:text="${session.choiceDetail.id}"></span>
+        <span id="getCourse" style="display: none" th:text="${session.choiceDetail.course}"></span>
+        <span id="getChapter" style="display: none" th:text="${session.choiceDetail.chapter}"></span>
+        <span id="getCountno" style="display: none" th:text="${session.choiceDetail.countno}"></span>
+        <span id="countNum" style="display: none"></span>
+
+        <div class="tile">
+            <div class="layer-figure">
+                <h3 class="title">选择题</h3>
+            </div>
+            <div class="layer-text">
+                <div th:text="${session.choiceDetail.countno+'. '+session.choiceDetail.title}" style="color: #2E2D3C"></div><br/><br/>
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="radio" name="answer" value="A" th:title="${session.choiceDetail.a}" checked><br/>
+                            <input type="radio" name="answer" value="B" th:title="${session.choiceDetail.b}"><br/>
+                            <input type="radio" name="answer" value="C" th:title="${session.choiceDetail.c}"><br/>
+                            <input type="radio" name="answer" value="D" th:title="${session.choiceDetail.d}"><br/>
+                        </div>
+                    </div>
+                </form>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button onclick="judge()" class="layui-btn layui-btn-radius layui-btn-normal" lay-submit lay-filter="formDemo" style="margin-top: 3%;width: 100px">提交</button>
+                        </div>
+                    </div>
+                <div id="true-answer"></div>
+                <div id="analysis"></div>
+                <button  type="button" class="layui-btn layui-btn-radius layui-btn-primary" style="float: right">
+                 <a onclick="return verificationCountnum();" th:href="@{'/choice_detail/'+${session.choiceDetail.course}+'/'+${session.choiceDetail.chapter}+'/'+${session.choiceDetail.id}(countno=${session.choiceDetail.countno+1})}" style="display: block;width: 100px">
+                     下一题
+                 </a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

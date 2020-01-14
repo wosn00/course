@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.course.dao.SummaryMapper">
+
+    <select id="selToFenye" parameterType="map" resultType="com.hs.course.entity.Summary">
+        select *,@row:=@row + 1 as countno from summary,(select @row:=#{pageId}) temp where course=#{course} and chapter=#{chapter} limit #{pageId},#{pageSize}
+    </select>
+    <select id="selCount" parameterType="map" resultType="int">
+        select count(1) from summary where course=#{course} and chapter=#{chapter}
+    </select>
+    <select id="selCounntno" parameterType="map" resultType="com.hs.course.entity.Summary">
+        select *
+        from (select *,@row:=@row + 1 as countno from summary,(select @row:=0) temp where course=#{course} and
+        chapter=#{chapter} limit 0,#{count}) emp
+        <where>
+            <if test="id != null and id !='' and id !=-1 ">
+                and id =#{id}
+            </if>
+            <if test="countno != null and countno != '' and countno != -1">
+                and countno =#{countno}
+            </if>
+        </where>
+    </select>
+    <select id="selByRand" parameterType="map" resultType="com.hs.course.entity.Summary">
+        select *
+        from summary
+        WHERE course=#{course}
+        ORDER BY RAND() limit #{num}
+    </select>
+</mapper>

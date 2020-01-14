@@ -1,0 +1,35 @@
+.layer-figure .title {
+    padding: 9px 20px;
+    font-size: 18px;
+    color: #fff;
+    background: url("../images/pc_yingyonfuwu.png") no-repeat center;
+    background-size: cover
+}
+
+.layer-text {
+    box-shadow: 5px 30px 30px #333333;
+    border-radius: 10px;
+    width: 66%;
+    font-size: 120%;
+    color: #2E2D3C;
+    margin-left: 13%;
+    overflow: hidden;
+    padding: 30px 40px 40px 40px;
+    background: url("../images/pc_diwen.png") no-repeat center;
+    background-size: cover
+}
+
+.layer-figure{
+    margin-left: 13%;
+}
+.title{
+    width: 80%;
+    margin-top: 5%;
+    text-align: center;
+    box-shadow: 8px 10px 20px #333333;
+    border-radius: 5px;
+}
+
+.layui-input-block{
+    margin-left: 0px;
+}

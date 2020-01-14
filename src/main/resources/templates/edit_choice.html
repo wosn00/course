@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>修改选择题</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <!--导航样式-->
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <!--layui样式-->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <!--导航和表单 依赖 element 模块，否则无法进行功能性操作-->
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+        });
+    </script>
+    <!--jq-->
+    <script type="text/javascript" src="/js/chapter/jquery.min.js"></script>
+    <!--消息提示组件-->
+    <script type="text/javascript" src="/js/message/message.js"></script>
+    <script type="text/javascript" src="/js/message/messageIE.js"></script>
+    <link rel="stylesheet" href="/css/message.css"/>
+    <!--自定义js-->
+    <script type="text/javascript" src="/js/edit.js"></script>
+
+</head>
+<body>
+<div class="layui-row">
+    <ul class="layui-nav " lay-filter="">
+        <li class="layui-nav-item layui-nav-item-1 layui-this"><a href="">课程主页</a></li>
+        <li class="layui-nav-item"><a href="">个人中心</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;"></a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                <dd><a href="">修改信息</a></dd>
+                <dd><a href="">退出登录</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+<div class="layui-container">
+    <form class="layui-form" action="">
+        <!--题目-->
+        <div class="layui-row" style="margin-left: 1%;margin-top: 3%;">
+            <label class="layui-form-label">题目</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input"
+                       th:value="${session.editChoice.title}">
+            </div>
+        </div>
+        <!--选项A-->
+        <div class="layui-row" style="margin: 1%">
+            <label class="layui-form-label">选项A</label>
+            <div class="layui-input-block">
+                <input type="text" name="a" required lay-verify="required" autocomplete="off" class="layui-input"
+                       th:value="${session.editChoice.a}">
+            </div>
+        </div>
+        <!--选项B-->
+        <div class="layui-row" style="margin: 1%">
+            <label class="layui-form-label">选项B</label>
+            <div class="layui-input-block">
+                <input type="text" name="b" required lay-verify="required" autocomplete="off" class="layui-input"
+                       th:value="${session.editChoice.b}">
+            </div>
+        </div>
+        <!--选项C-->
+        <div class="layui-row" style="margin: 1%">
+            <label class="layui-form-label">选项C</label>
+            <div class="layui-input-block">
+                <input type="text" name="c" required lay-verify="required" autocomplete="off" class="layui-input"
+                       th:value="${session.editChoice.c}">
+            </div>
+        </div>
+        <!--选项D-->
+        <div class="layui-row" style="margin: 1%">
+            <label class="layui-form-label">选项D</label>
+            <div class="layui-input-block">
+                <input type="text" name="d" required lay-verify="required" autocomplete="off" class="layui-input"
+                       th:value="${session.editChoice.d}">
+            </div>
+        </div>
+        <!--正确答案-->
+        <div class="layui-row" style="margin: 1%">
+            <label class="layui-form-label">正确答案</label>
+            <div class="layui-input-block">
+                <input type="text" name="answer" required lay-verify="required" autocomplete="off" class="layui-input"
+                       th:value="${session.editChoice.answer}">
+            </div>
+        </div>
+        <!--解析-->
+        <div class="layui-row" style="margin: 1%">
+            <label class="layui-form-label">解析</label>
+            <div class="layui-input-block">
+                <input type="text" name="analysis" required lay-verify="required" autocomplete="off" class="layui-input"
+                       th:value="${session.editChoice.analysis}">
+            </div>
+        </div>
+        <!--隐藏题目id-->
+        <div class="layui-row" style="display: none">
+            <div class="layui-input-block">
+                <input type="text" name="id" required lay-verify="required" autocomplete="off" class="layui-input"
+                       th:value="${session.editChoice.id}">
+            </div>
+        </div>
+    </form>
+    <div class="layui-row" style="margin-left: 10%;margin-top: 3%">
+        <button type="button" class="layui-btn" id="choice-btn">保存</button>
+        <a th:href="@{'/jizu_choicequestion/'+${session.backChapter}}" class="layui-btn layui-btn-primary">返回</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>计组章节</title>
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/nav.css"/>
+    <!--layui-->
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script>
+        //导航 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="css/chapter/style.css"/>
+    <script type="text/javascript" src="js/chapter/jquery.min.js"></script>
+    <!--弹出层-->
+    <script src="js/pop-up.js"></script>
+    <link rel="stylesheet" href="css/pop-up.css">
+    <!--按钮-->
+    <link rel="stylesheet" href="css/button.css">
+</head>
+<body style="background-color: #dcdcdc">
+<ul class="layui-nav " lay-filter="">
+    <li class="layui-nav-item layui-nav-item-1 layui-this"><a href="">课程主页</a></li>
+    <li class="layui-nav-item"><a href="">个人中心</a></li>
+    <li class="layui-nav-item">
+        <a href="javascript:;"></a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="">修改信息</a></dd>
+            <dd><a href="">退出登录</a></dd>
+        </dl>
+    </li>
+</ul>
+
+<!--章节-->
+<ul id="da-thumbs" class="da-thumbs">
+    <li class="ClickMe" data-chapter="1">
+        <a>
+            <img src="images/chapter/1.png"/>
+            <div><span>第一章<br/>
+                计算机系统概论</span></div>
+        </a>
+    </li>
+    <li class="ClickMe" data-chapter="2">
+        <a>
+            <img src="images/chapter/2.png"/>
+            <div><span>第二章<br/>
+                运算方法和运算器</span></div>
+        </a>
+    </li>
+    <li class="ClickMe" data-chapter="3">
+        <a>
+            <img src="images/chapter/3.png"/>
+            <div><span>第三章<br/>
+                多层次的存储器</span></div>
+        </a>
+    </li>
+    <li class="ClickMe" data-chapter="4">
+        <a>
+            <img src="images/chapter/4.png"/>
+            <div><span>第四章<br/>
+                指令系统</span></div>
+        </a>
+    </li>
+    <li class="ClickMe" data-chapter="5">
+        <a>
+            <img src="images/chapter/5.png"/>
+            <div><span>第五章<br/>
+                中央处理器</span></div>
+        </a>
+    </li>
+    <li class="ClickMe" data-chapter="6">
+        <a>
+            <img src="images/chapter/6.png"/>
+            <div><span>第六章<br/>
+                总线系统</span></div>
+        </a>
+    </li>
+    <li class="ClickMe" data-chapter="7">
+        <a>
+            <img src="images/chapter/7.png"/>
+            <div><span>第七章<br/>
+                外存与I/O设备</span></div>
+        </a>
+    </li>
+    <li class="ClickMe" data-chapter="8">
+        <a>
+            <img src="images/chapter/8.png"/>
+            <div><span>第八章<br/>
+                输入输出系统</span></div>
+        </a>
+    </li>
+    <li class="ClickMe" data-chapter="9">
+        <a>
+            <img src="images/chapter/9.png"/>
+            <div><span>第九章<br/>
+                并行组织与结构</span></div>
+        </a>
+    </li>
+</ul>
+
+<!--弹出窗-->
+<div id="goodcover"></div>
+<div id="code">
+    <div class="close1"><a href="javascript:void(0)" id="closebt"><img src="images/close.gif"></a></div>
+    <div class="goodtxt">
+        <div class="buttons_new">
+            <div class="container_new">
+                <a class="btn effect04 choiceClick" data-sm-link-text="CLICK" target="_blank"><span>选择题</span></a>
+            </div>
+        </div>
+        <div class="buttons_new">
+            <div class="container_new">
+                <a href="#" class="btn effect04 summaryClick" data-sm-link-text="CLICK" target="_blank"><span>简答题</span></a>
+            </div>
+        </div>
+        <div class="buttons_new">
+            <div class="container_new">
+                <a href="#" class="btn effect04" data-sm-link-text="CLICK" target="_blank"><span>计算题</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="js/chapter/jquery.hoverdir.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        $('#da-thumbs > li').hoverdir({
+            hoverDelay: 75
+        });
+
+    });
+</script>
+
+
+</body>
+</html>

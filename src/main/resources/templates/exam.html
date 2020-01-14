@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <title>在线考试</title>
+    <link href="/css/exam/main.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/exam/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/exam/test.css" rel="stylesheet" type="text/css"/>
+
+    <!--layui样式-->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <!--导航和表单和弹出层 依赖 element 模块，否则无法进行功能性操作-->
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+        });
+        layui.use('layer', function(){
+            var layer = layui.layer;
+        });
+    </script>
+    <!--jq-->
+    <script type="text/javascript" src="/js/chapter/jquery.min.js"></script>
+    <!--自定义js-->
+    <script type="text/javascript" src="/js/exam.js"></script>
+
+    <style>
+        .hasBeenAnswer {
+            background: #5d9cec;
+            color: #fff;
+        }
+
+    </style>
+</head>
+
+<div class="main">
+    <!--nr start-->
+    <div class="test_main">
+        <div class="nr_left">
+            <div class="test">
+                <form action="" method="post">
+
+                    <div class="test_title">
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
+                        </p>
+                        <font><input type="button" name="test_jiaojuan" value="交卷"></font>
+                    </div>
+                    <!--========================选择题=====================-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>单选题</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">20</i><span>题，</span><span>合计</span><i
+                                    class="content_fs">80</i><span>分</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="test_content_nr choices">
+                        <!--存放选择题-->
+                    </div>
+
+                    <!--========================简答题=====================-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>简答题</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">2</i><span>题，</span><span>合计</span><i class="content_fs">20</i><span>分</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="test_content_nr summaries">
+                        <!--存放简答题-->
+
+
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+        <div class="nr_right">
+            <div class="nr_rt_main">
+                <div class="rt_nr1">
+                    <div class="rt_nr1_title">
+                        <h1>
+                            <i class="icon iconfont">&#xe692;</i>答题卡
+                        </h1>
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
+                        </p>
+                    </div>
+
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>单选题</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">20</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet side">
+                          <!--存放选择题边栏-->
+                        </div>
+                    </div>
+
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>简答题</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">2</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet side2">
+                            <!--存放简答题侧边栏-->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--nr end-->
+    <div class="foot"></div>
+</div>
+
+<script src="/js/jquery.easy-pie-chart.js"></script>
+<!--时间js-->
+<script src="/js/time/jquery.countdown.js"></script>
+<script>
+    window.jQuery(function ($) {
+        "use strict";
+
+        $('time').countDown({
+            with_separators: false
+        });
+        $('.alt-1').countDown({
+            css_class: 'countdown-alt-1'
+        });
+        $('.alt-2').countDown({
+            css_class: 'countdown-alt-2'
+        });
+
+    });
+</script>
+
+
+</body>
+</html>

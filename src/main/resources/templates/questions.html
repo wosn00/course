@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>错题集</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <!--layui-->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <script>
+        //导航 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+    </script>
+    <script type="text/javascript" src="/js/chapter/jquery.min.js"></script>
+
+    <!--按钮-->
+    <link rel="stylesheet" href="/css/button.css">
+    <!--表格css-->
+    <link rel="stylesheet" href="/css/choice.css">
+
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item"><a>Welcome !</a></li>
+    <li style="float: right" class="layui-nav-item">
+        <a href="javascript:;" ></a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="">修改信息</a></dd>
+            <dd><a href="">退出登录</a></dd>
+        </dl>
+    </li>
+    <li style="float: right" class="layui-nav-item"><a href="">个人中心</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
+    <li style="float: right" class="layui-nav-item layui-nav-item-1 layui-this"><a href="">课程主页</a></li>
+</ul>
+
+
+
+<!--分页-->
+<script type="text/javascript" src="/js/questions_fenye.js"></script>
+<div class="layui-row">
+    <table class="layui-table choice-table">
+        <thead>
+        <tr>
+            <th style="width: 10%;text-align: center">课程</th>
+            <th style="width: 7%;text-align: center">章节</th>
+            <th style="width: 8%;text-align: center">类型</th>
+            <th style="text-align: center">题目</th>
+            <th style="width: 11%;text-align: center">做题时间</th>
+            <th style="width: 9%;text-align: center">点击作答</th>
+            <th style="width: 9%;text-align: center">删除</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <!--存放分页加载数据-->
+        </tbody>
+
+    </table>
+    <div class="page"></div>
+</div>
+
+<span id="count" style="display:none"></span>
+
+
+</body>
+</html>
