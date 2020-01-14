@@ -61,7 +61,7 @@ public class AdminController {
     public Object updateChoice(SummaryGenerator summaryGenerator){
         summaryGeneratorMapper.updateByPrimaryKeySelective(summaryGenerator);
         return Result.builder()
-                .code(1)
+                .code(233)
                 .build();
     }
 
