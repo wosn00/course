@@ -64,7 +64,7 @@ public class AdminController {
         //233333
         HashMap<Object, Object> map = new HashMap<>();
         return Result.builder()
-                .code(23344445)
+                .code(23)
                 .build();
         //wahahahha
 
