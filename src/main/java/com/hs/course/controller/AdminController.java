@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @Controller
 public class AdminController {
@@ -60,9 +61,11 @@ public class AdminController {
     @ResponseBody
     public Object updateChoice(SummaryGenerator summaryGenerator){
         summaryGeneratorMapper.updateByPrimaryKeySelective(summaryGenerator);
+        HashMap<Object, Object> map = new HashMap<>();
         return Result.builder()
                 .code(1)
                 .build();
+        //2333
     }
 
 
