@@ -79,7 +79,7 @@ public class QuestionsController {
             questionsVo.setId(item.getId());
             questionsVo.setUserid(userId);
             questionsVo.setProblemid(item.getProblemid());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-M-d h:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String date = simpleDateFormat.format(item.getTime());
             questionsVo.setTime(date);
             questionsVo.setType(item.getType().equals("choice") ? "选择题" : "简答题");

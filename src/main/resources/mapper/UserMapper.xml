@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hs.course.dao.UserMapper">
     <insert id="regSaveUser" parameterType="com.hs.course.entity.User">
-        insert into user(name,pwd,phone,role) values (#{name},#{pwd},#{phone},#{role})
+        insert into user(name,pwd,phone,role,date) values (#{name},#{pwd},#{phone},#{role},NOW())
     </insert>
     <select id="findByName" parameterType="String" resultType="com.hs.course.entity.User">
         select * from user where name=#{name}
