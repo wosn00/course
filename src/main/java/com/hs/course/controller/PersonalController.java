@@ -1,11 +1,15 @@
 package com.hs.course.controller;
 
+import com.hs.course.courseService.AccuracyRateService;
+import com.hs.course.courseService.RangeCalculationService;
 import com.hs.course.daogenerator.UserGeneratorMapper;
 import com.hs.course.domaingenerator.UserGenerator;
 import com.hs.course.domaingenerator.UserGeneratorExample;
 import com.hs.course.entity.Result;
 import com.hs.course.entity.User;
+import com.hs.course.vo.AccuracyRateVo;
 import com.hs.course.vo.PersonalVo;
+import com.hs.course.vo.TotalCountVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +25,17 @@ import java.util.stream.Collectors;
 public class PersonalController {
     @Autowired
     private UserGeneratorMapper userGeneratorMapper;
+    @Autowired
+    private RangeCalculationService rangeCalculationService;
+    @Autowired
+    private AccuracyRateService accuracyRateService;
 
     /**
      * 返回个人信息
      */
     @GetMapping("get_information")
     @ResponseBody
-    public Object getInformation(HttpSession session) {
+    public Result getInformation(HttpSession session) {
         //获得个人信息
         User user = (User) session.getAttribute("user");
         UserGeneratorExample example = new UserGeneratorExample();
@@ -50,7 +58,7 @@ public class PersonalController {
      */
     @GetMapping("update_information")
     @ResponseBody
-    public Object updateInformation(String name, String className, String studentID) {
+    public Result updateInformation(String name, String className, String studentID) {
         UserGeneratorExample ex = new UserGeneratorExample();
         ex.createCriteria().andNameEqualTo(name);
         UserGenerator user = new UserGenerator();
@@ -63,5 +71,39 @@ public class PersonalController {
                 .build();
     }
 
+    /**
+     * 计算对应科目已答题数，正确率
+     */
+    @GetMapping("get_range")
+    @ResponseBody
+    public Result getRange(String course, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        String userName = user.getName();
+        TotalCountVo vo = rangeCalculationService.calculation(userName, course);
+
+        return Result.builder()
+                .message("返回成功")
+                .code(1)
+                .data(vo)
+                .build();
+    }
+
+    /**
+     * 获取计组和数构的平均正确率
+     *
+     */
+    @GetMapping("get_accuracy_rate")
+    @ResponseBody
+    public Object getAccuracyRate(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        String userName = user.getName();
+        AccuracyRateVo vo = accuracyRateService.getAccuracyRate(userName);
+
+        return Result.builder()
+                .code(1)
+                .message("返回平均正确率成功")
+                .data(vo)
+                .build();
+    }
 
 }

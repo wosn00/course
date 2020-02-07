@@ -3,9 +3,12 @@ package com.hs.course.controller;
 import com.hs.course.courseService.AnswerMatching;
 import com.hs.course.courseService.SummaryService;
 import com.hs.course.daogenerator.SummaryGeneratorMapper;
+import com.hs.course.daogenerator.TotalAnswerGeneratorMapper;
 import com.hs.course.domaingenerator.SummaryGenerator;
+import com.hs.course.domaingenerator.TotalAnswerGenerator;
 import com.hs.course.entity.Result;
 import com.hs.course.entity.Summary;
+import com.hs.course.entity.User;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,8 @@ public class SummaryController {
     private AnswerMatching answerMatching;
     @Autowired
     private SummaryGeneratorMapper summaryGeneratorMapper;
+    @Autowired
+    private TotalAnswerGeneratorMapper totalAnswerGeneratorMapper;
 
     /**
      * session存章节，int型
@@ -94,7 +99,10 @@ public class SummaryController {
      */
     @RequestMapping("/summaryJudge")
     @ResponseBody
-    public Result<Map> summaryJudge(int id, String answer) {
+    public Result<Map> summaryJudge(int id, String answer,HttpSession session) {
+        //获得userName
+        User user = (User) session.getAttribute("user");
+        String userName=user.getName();
         SummaryGenerator summaryGenerator = summaryGeneratorMapper.selectByPrimaryKey(id);
         Map<Object, Object> map = new HashMap<>(16);
         if (StringUtils.isBlank(answer)) {
@@ -109,6 +117,21 @@ public class SummaryController {
         Float matching = answerMatching.matching(answer, summaryGenerator.getKeyword());
         map.put("matching", matching * 100);
         map.put("standAnswer", summaryGenerator.getAnswer());
+        //存入答题数量表
+        TotalAnswerGenerator totalAnswerGenerator = new TotalAnswerGenerator();
+        totalAnswerGenerator.setUsername(userName);
+        totalAnswerGenerator.setProblemid(id);
+        Float v = matching * 100;
+        totalAnswerGenerator.setResult(v.intValue());
+        totalAnswerGenerator.setType("summary");
+        totalAnswerGenerator.setCourse(1);
+        try {
+            totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
+        } catch (Exception e) {
+            //TODO
+            System.out.println("=====出现重复题目，简答题======");
+        }
+
         return Result.<Map>builder()
                 .code(1)
                 .message("响应成功")

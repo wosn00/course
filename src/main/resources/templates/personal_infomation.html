@@ -30,69 +30,248 @@
     <link rel="stylesheet" href="/css/message.css"/>
     <!--自定义js-->
     <script type="text/javascript" src="/js/personal/personal-information.js"></script>
+    <script type="text/javascript" src="/js/personal/range-calculation.js"></script>
+    <!--圆形进度条-->
+    <link rel="stylesheet" href="/css/round-progress.css">
 </head>
 <body>
+
 <ul class="layui-nav" lay-filter="">
     <li class="layui-nav-item"><a>Welcome !</a></li>
     <li style="float: right" class="layui-nav-item">
-        <a href="javascript:;"></a>
+        <a href="javascript:;" th:text="${session.user.name}"></a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
             <dd><a href="">修改信息</a></dd>
             <dd><a href="">退出登录</a></dd>
         </dl>
     </li>
-    <li style="float: right" class="layui-nav-item layui-this"><a href="">个人中心</a></li>
+    <li style="float: right" class="layui-nav-item layui-this"><a href="/personal_infomation">个人中心</a></li>
     <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
     <li style="float: right" class="layui-nav-item"><a href="">课程主页</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/background">后台</a></li>
+
 </ul>
 
 <div class="layui-container">
-    <div class="layui-row">
+    <div class="layui-row layui-col-space30">
         <div class="layui-col-md8">
-            你的内容 7
+
+            <!--计算机组成原理-->
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>计算机组成原理</legend>
+                <div class="layui-field-box">
+                    <div class="layui-row">
+                        <div class="layui-col-md1">
+                            <span style="font-size: 18px;font-family: serif">选择题</span>
+                        </div>
+                        <div class="layui-col-md6">
+                            <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                                <div class="jizu-choice layui-progress-bar" lay-percent="0%"></div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md5">
+                            <span id="jizu-choice-count" style="font-size: 18px;font-family: serif"></span>
+                        </div>
+                    </div><br/>
+                    <div class="layui-row">
+                        <div class="layui-col-md1">
+                            <span style="font-size: 18px;font-family: serif">简答题</span>
+                        </div>
+                        <div class="layui-col-md6">
+                            <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                                <div class="jizu-summary layui-progress-bar layui-bg-blue" lay-percent="0%"></div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md5">
+                            <span id="jizu-summary-count" style="font-size: 18px;font-family: serif"></span>
+                        </div>
+                    </div>
+                    <!--平均正确率进度条-->
+                    <ul class="progress">
+                        <!--选择题-->
+                        <li id="jizu-choice-rate-1" data-name="选择题平均正确率" data-percent="0%">
+                            <svg viewBox="-10 -10 220 220">
+                                <g fill="none" stroke-width="12" transform="translate(100,100)">
+                                    <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"/>
+                                    <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"/>
+                                    <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"/>
+                                    <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"/>
+                                    <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"/>
+                                    <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"/>
+                                </g>
+                            </svg>
+                            <svg viewBox="-10 -10 220 220">
+                                <path id="jizu-choice-rate-2" d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="0"></path>
+                            </svg>
+                        </li>
+
+
+                        <!--简答题-->
+                        <li id="jizu-summary-rate-1" data-name="简答题平均正确率" data-percent="0%">
+                            <svg viewBox="-10 -10 220 220">
+                                <g fill="none" stroke-width="12" transform="translate(100,100)">
+                                    <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"/>
+                                    <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"/>
+                                    <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"/>
+                                    <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"/>
+                                    <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"/>
+                                    <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"/>
+                                </g>
+                            </svg>
+                            <svg viewBox="-10 -10 220 220">
+                                <path id="jizu-summary-rate-2" d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="0"></path>
+                            </svg>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </fieldset>
+            <br/>
+            <!--数据结构-->
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>数据结构</legend>
+                <div class="layui-field-box">
+                    <div class="layui-row">
+                        <div class="layui-col-md1">
+                            <span style="font-size: 18px;font-family: serif">选择题</span>
+                        </div>
+                        <div class="layui-col-md6">
+                            <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                                <div class="shugou-choice layui-progress-bar" lay-percent="0%"></div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md5">
+                            <span id="shugou-choice-count" style="font-size: 18px;font-family: serif"></span>
+                        </div>
+                    </div><br/>
+                    <div class="layui-row">
+                        <div class="layui-col-md1">
+                            <span style="font-size: 18px;font-family: serif">简答题</span>
+                        </div>
+                        <div class="layui-col-md6">
+                            <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                                <div class="shugou-summary layui-progress-bar layui-bg-blue" lay-percent="0%"></div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md5">
+                            <span id="shugou-summary-count" style="font-size: 18px;font-family: serif"></span>
+                        </div>
+                    </div>
+                    <!--平均正确率进度条-->
+                    <ul class="progress">
+                        <!--选择题-->
+                        <li id="shugou-choice-rate-1" data-name="选择题平均正确率" data-percent="0%">
+                            <svg viewBox="-10 -10 220 220">
+                                <g fill="none" stroke-width="12" transform="translate(100,100)">
+                                    <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"/>
+                                    <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"/>
+                                    <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"/>
+                                    <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"/>
+                                    <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"/>
+                                    <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"/>
+                                </g>
+                            </svg>
+                            <svg viewBox="-10 -10 220 220">
+                                <path id="shugou-choice-rate-2" d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="0"></path>
+                            </svg>
+                        </li>
+
+
+                        <!--简答题-->
+                        <li id="shugou-summary-rate-1" data-name="简答题平均正确率" data-percent="0%">
+                            <svg viewBox="-10 -10 220 220">
+                                <g fill="none" stroke-width="12" transform="translate(100,100)">
+                                    <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"/>
+                                    <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"/>
+                                    <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"/>
+                                    <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"/>
+                                    <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"/>
+                                    <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"/>
+                                </g>
+                            </svg>
+                            <svg viewBox="-10 -10 220 220">
+                                <path id="shugou-summary-rate-2" d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="0"></path>
+                            </svg>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </fieldset>
+
+
         </div>
         <div class="layui-col-md4">
             <fieldset class="layui-elem-field" style="margin-top: 12%">
-                <legend>个人资料</legend>
-                <div class="layui-field-box">
-                    <form class="layui-form layui-form-pane" action="">
+            <legend>个人资料</legend>
+            <div class="layui-field-box">
+            <form class="layui-form layui-form-pane" action="">
 
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">账号</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="name" required lay-verify="required"
-                                       autocomplete="off" class="layui-input" disabled>
-                            </div><br/>
-                            <label class="layui-form-label">手机号</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="phone" required lay-verify="required"
-                                       autocomplete="off" class="layui-input" disabled>
-                            </div><br/>
-                            <label class="layui-form-label">注册日期</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="date" required lay-verify="required"
-                                       autocomplete="off" class="layui-input" disabled>
-                            </div><br/>
-                            <label class="layui-form-label">班级</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="className" required lay-verify="required" placeholder="无信息"
-                                       autocomplete="off" class="layui-input">
-                            </div><br/>
-                            <label class="layui-form-label">学号</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="studentID" required lay-verify="required" placeholder="无信息"
-                                       autocomplete="off" class="layui-input">
-                            </div><br/>
-                        </div>
-                    </form>
-                    <button type="button" id="update-information" class="layui-btn layui-btn-normal" style="width: 100%">完善信息</button>
-                </div>
+            <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+            <input type="text" name="name" required lay-verify="required"
+            autocomplete="off" class="layui-input" disabled>
+            </div><br/>
+            <label class="layui-form-label">手机号</label>
+            <div class="layui-input-block">
+            <input type="text" name="phone" required lay-verify="required"
+            autocomplete="off" class="layui-input" disabled>
+            </div><br/>
+            <label class="layui-form-label">注册日期</label>
+            <div class="layui-input-block">
+            <input type="text" name="date" required lay-verify="required"
+            autocomplete="off" class="layui-input" disabled>
+            </div><br/>
+            <label class="layui-form-label">班级</label>
+            <div class="layui-input-block">
+            <input type="text" name="className" required lay-verify="required" placeholder="无信息"
+            autocomplete="off" class="layui-input">
+            </div><br/>
+            <label class="layui-form-label">学号</label>
+            <div class="layui-input-block">
+            <input type="text" name="studentID" required lay-verify="required" placeholder="无信息"
+            autocomplete="off" class="layui-input">
+            </div><br/>
+            </div>
+            </form>
+            <button type="button" id="update-information" class="layui-btn layui-btn-normal" style="width: 100%">完善信息</button>
+            </div>
 
             </fieldset>
         </div>
     </div>
 </div>
 
-
+<!--矢量部分-->
+<svg width="0" height="0">
+    <defs>
+        <linearGradient id="cl1" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#618099"/>
+            <stop offset="100%" stop-color="#8e6677"/>
+        </linearGradient>
+        <linearGradient id="cl2" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="0" y2="1">
+            <stop stop-color="#8e6677"/>
+            <stop offset="100%" stop-color="#9b5e67"/>
+        </linearGradient>
+        <linearGradient id="cl3" gradientUnits="objectBoundingBox" x1="1" y1="0" x2="0" y2="1">
+            <stop stop-color="#9b5e67"/>
+            <stop offset="100%" stop-color="#9c787a"/>
+        </linearGradient>
+        <linearGradient id="cl4" gradientUnits="objectBoundingBox" x1="1" y1="1" x2="0" y2="0">
+            <stop stop-color="#9c787a"/>
+            <stop offset="100%" stop-color="#817a94"/>
+        </linearGradient>
+        <linearGradient id="cl5" gradientUnits="objectBoundingBox" x1="0" y1="1" x2="0" y2="0">
+            <stop stop-color="#817a94"/>
+            <stop offset="100%" stop-color="#498a98"/>
+        </linearGradient>
+        <linearGradient id="cl6" gradientUnits="objectBoundingBox" x1="0" y1="1" x2="1" y2="0">
+            <stop stop-color="#498a98"/>
+            <stop offset="100%" stop-color="#618099"/>
+        </linearGradient>
+    </defs>
+</svg>
 </body>
 </html>

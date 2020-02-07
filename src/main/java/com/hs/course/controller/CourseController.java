@@ -2,9 +2,12 @@ package com.hs.course.controller;
 
 import com.hs.course.courseService.ChoiceService;
 import com.hs.course.daogenerator.ChoiceGeneratorMapper;
+import com.hs.course.daogenerator.TotalAnswerGeneratorMapper;
 import com.hs.course.domaingenerator.ChoiceGenerator;
+import com.hs.course.domaingenerator.TotalAnswerGenerator;
 import com.hs.course.entity.Choice;
 import com.hs.course.entity.Result;
+import com.hs.course.entity.User;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +30,8 @@ public class CourseController {
     private ChoiceService choiceService;
     @Autowired
     private ChoiceGeneratorMapper choiceGeneratorMapper;
+    @Autowired
+    private TotalAnswerGeneratorMapper totalAnswerGeneratorMapper;
 
     @RequestMapping("/{pageNme}")
     public String jump(@PathVariable String pageNme) {
@@ -92,6 +97,10 @@ public class CourseController {
     @RequestMapping("/answerJudge")
     @ResponseBody
     public Result<Map> choiceAnswerJudge(Integer id, String answer, HttpSession session) {
+        //获取userName
+        User user= (User) session.getAttribute("user");
+        String userName=user.getName();
+
         ChoiceGenerator choice = choiceGeneratorMapper.selectByPrimaryKey(id);
         session.setAttribute("choiceDetail",choice);
         Map<String, String> map = new HashMap<>(16);
@@ -100,13 +109,36 @@ public class CourseController {
         if (StringUtils.isNotBlank(choice.getAnalysis())) {
             map.put("analysis", choice.getAnalysis());
         }
+        //添加做题总数表
+        TotalAnswerGenerator totalAnswerGenerator = new TotalAnswerGenerator();
+        totalAnswerGenerator.setCourse(1);
+        totalAnswerGenerator.setType("choice");
+        totalAnswerGenerator.setProblemid(id);
+        totalAnswerGenerator.setUsername(userName);
+        //判断答案是否正确
         if (choice.getAnswer().equals(answer.trim())){
+            totalAnswerGenerator.setResult(1);
+            try {
+                totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
+            } catch (Exception e) {
+                //TODO
+                e.printStackTrace();
+                System.out.println("==========出现重复做题（正确）==========");
+            }
             return Result.<Map>builder()
                     .code(1)
                     .message("回答正确")
                     .data(map)
                     .build();
         }else {
+            totalAnswerGenerator.setResult(0);
+            try {
+                totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
+            } catch (Exception e) {
+                //TODO
+                e.printStackTrace();
+                System.out.println("==========出现重复做题（错误）==========");
+            }
             return Result.<Map>builder()
                     .code(0)
                     .message("回答错误")

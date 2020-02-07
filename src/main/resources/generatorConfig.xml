@@ -40,6 +40,7 @@
             <columnOverride column="keyword" jdbcType="VARCHAR" />
         </table>
         <table tableName="questions" domainObjectName="QuestionsGenerator" ></table>
+        <table tableName="user_total_answer" domainObjectName="TotalAnswerGenerator" ></table>
 
     </context>
 </generatorConfiguration>
