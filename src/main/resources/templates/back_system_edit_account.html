@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>后台系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <!--layui样式-->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <!--导航和表单 依赖 element 模块，否则无法进行功能性操作-->
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+        });
+    </script>
+    <!--jq-->
+    <script type="text/javascript" src="/js/chapter/jquery.min.js"></script>
+    <!--消息提示组件-->
+    <script type="text/javascript" src="/js/message/message.js"></script>
+    <script type="text/javascript" src="/js/message/messageIE.js"></script>
+    <link rel="stylesheet" href="/css/message.css"/>
+    <!--自定义js-->
+    <script type="text/javascript" src="/js/backsystem/update-account.js"></script>
+
+
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item"><a>Welcome !</a></li>
+    <li style="float: right" class="layui-nav-item">
+        <a href="javascript:;" th:text="${session.user.name}"></a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="">修改信息</a></dd>
+            <dd><a href="">退出登录</a></dd>
+        </dl>
+    </li>
+    <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="">课程主页</a></li>
+    <li style="float: right" class="layui-nav-item layui-this"><a href="/background">后台系统</a></li>
+
+</ul>
+<div class="layui-container" style="margin-left: -1%;">
+    <div class="layui-row">
+        <div class="layui-col-md3">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+
+                <li class="layui-nav-item layui-this"><a href="/back_system">账号</a></li>
+                <li class="layui-nav-item"><a href="">答题日志</a></li>
+                <li class="layui-nav-item"><a href="">登录日志</a></li>
+            </ul>
+
+        </div>
+        <div class="layui-col-md9">
+
+
+            <form class="layui-form layui-form-pane" action="">
+                <div class="layui-form-item" style="display: none">
+                    <label class="layui-form-label">id</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="id" required lay-verify="required" autocomplete="off"
+                               class="layui-input" th:value="${session.editAccount.id}">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" required lay-verify="required" autocomplete="off"
+                               class="layui-input" th:value="${session.editAccount.name}" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="pwd" required lay-verify="required" autocomplete="off"
+                               class="layui-input" th:value="${session.editAccount.pwd}">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">班级</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="classname" required lay-verify="required" autocomplete="off"
+                               class="layui-input" th:value="${session.editAccount.classname}">
+                    </div>
+                </div>
+
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="studentID" required lay-verify="required" autocomplete="off"
+                               class="layui-input" th:value="${session.editAccount.studentid}">
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phone" required lay-verify="required" autocomplete="off"
+                               class="layui-input" th:value="${session.editAccount.phone}" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane>
+                    <label class="layui-form-label">注册日期</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="date" required lay-verify="required" autocomplete="off"
+                               class="layui-input" th:value="${session.editAccount.date}" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">权限</label>
+                    <div class="layui-input-block">
+                        <div th:if="${session.editAccount.role} == 2">
+                        <input type="radio" name="role" value="2" title="普通用户" checked>
+                        <input type="radio" name="role" value="1" title="管理员">
+                        </div>
+                        <div th:if="${session.editAccount.role} == 1">
+                        <input type="radio" name="role" value="2" title="普通用户">
+                        <input type="radio" name="role" value="1" title="管理员" checked>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+
+            <button id="update-account" type="button" class="layui-btn layui-btn-normal">更新信息</button>
+            <a href="/back_system" class="layui-btn">返回</a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

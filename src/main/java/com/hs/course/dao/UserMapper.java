@@ -4,6 +4,9 @@ import com.hs.course.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 @Repository
 @Mapper
 public interface UserMapper {
@@ -12,5 +15,6 @@ public interface UserMapper {
      int findRoleByName(String name);
      User findByPhone(String phone);
      void updateByPhone(User user);
+     List<User> selFenye(Map map);
 
 }

@@ -18,5 +18,8 @@
     <update id="updateByPhone" parameterType="com.hs.course.entity.User">
         update user set name = #{name} , pwd = #{pwd} where phone = #{phone}
     </update>
+    <select id="selFenye" parameterType="map" resultType="com.hs.course.entity.User">
+        select * from user limit #{pageId},#{pageSize}
+    </select>
 
 </mapper>

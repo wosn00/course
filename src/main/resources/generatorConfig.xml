@@ -41,6 +41,7 @@
         </table>
         <table tableName="questions" domainObjectName="QuestionsGenerator" ></table>
         <table tableName="user_total_answer" domainObjectName="TotalAnswerGenerator" ></table>
+        <table tableName="record_answer" domainObjectName="RecordAnswerGenerator" ></table>
 
     </context>
 </generatorConfiguration>

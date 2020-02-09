@@ -42,39 +42,50 @@
     <li style="float: right" class="layui-nav-item layui-this"><a href="/background">后台系统</a></li>
 
 </ul>
+<div class="layui-container" style="margin-left: -1%;">
+    <div class="layui-row">
+        <div class="layui-col-md3">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
 
-<ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-this"><a href="/back_system">账号</a></li>
+                <li class="layui-nav-item"><a href="">答题日志</a></li>
+                <li class="layui-nav-item"><a href="">登录日志</a></li>
+            </ul>
 
-    <li class="layui-nav-item layui-this"><a href="">账号</a></li>
-    <li class="layui-nav-item"><a href="">答题日志</a></li>
-    <li class="layui-nav-item"><a href="">登录日志</a></li>
-</ul>
+        </div>
+        <div class="layui-col-md9">
 
+            <!--分页-->
+            <script type="text/javascript" src="/js/backsystem/account_fenye.js"></script>
+            <div class="layui-row">
+                <table class="layui-table choice-table">
+                    <thead>
+                    <tr>
+                        <th style="width: 3%;text-align: center">id</th>
+                        <th style="width: 10%;text-align: center">账号</th>
+                        <th style="width: 10%;text-align: center">密码</th>
+                        <th style="width: 9%;text-align: center">班级</th>
+                        <th style="width: 9%;text-align: center">学号</th>
+                        <th style="width: 9%;text-align: center">手机号</th>
+                        <th style="width: 13%;text-align: center">注册日期</th>
+                        <th style="width: 9%;text-align: center">角色</th>
+                        <th style="width: 6%;text-align: center">修改</th>
+                    </tr>
+                    </thead>
 
-<!--分页-->
-<script th:inline="javascript">
-    var jizuChapter = [[${session.jizuChapter}]];
-</script>
-<script type="text/javascript" src="/js/choice_fenye.js"></script>
-<div class="layui-row">
-    <table class="layui-table choice-table">
-        <thead>
-        <tr>
-            <th style="width: 80px;text-align: center">题号</th>
-            <th style="text-align: center">题目</th>
-            <th style="width: 9%;text-align: center">点击作答</th>
-            <th style="width: 9%;text-align: center">修改</th>
-        </tr>
-        </thead>
+                    <tbody>
+                    <!--存放分页加载数据-->
+                    </tbody>
 
-        <tbody>
-        <!--存放分页加载数据-->
-        </tbody>
-
-    </table>
-    <div class="page"></div>
+                </table>
+                <div class="page"></div>
+            </div>
+            <!--存放总条数-->
+            <span id="count" style="display:none"></span>
+        </div>
+    </div>
 </div>
 
-<span id="count" style="display:none"></span>
+
 </body>
 </html>

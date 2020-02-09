@@ -95,6 +95,11 @@
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+        <!--spring切面aop依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
 
     </dependencies>
 
