@@ -11,6 +11,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -21,7 +23,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Status login(String name, String pwd, HttpSession session) {
+    public Status login(String name, String pwd, HttpSession session, HttpServletRequest request) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(name, pwd);
         Status status = new Status();

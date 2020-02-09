@@ -1,6 +1,7 @@
 package com.hs.course.domaingenerator;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecordAnswerGeneratorExample {
@@ -571,6 +572,136 @@ public class RecordAnswerGeneratorExample {
 
         public Criteria andUserAnswerNotBetween(String value1, String value2) {
             addCriterion("user_answer not between", value1, value2, "userAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateIsNull() {
+            addCriterion("date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateIsNotNull() {
+            addCriterion("date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateEqualTo(Date value) {
+            addCriterion("date =", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateNotEqualTo(Date value) {
+            addCriterion("date <>", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateGreaterThan(Date value) {
+            addCriterion("date >", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("date >=", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateLessThan(Date value) {
+            addCriterion("date <", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateLessThanOrEqualTo(Date value) {
+            addCriterion("date <=", value, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateIn(List<Date> values) {
+            addCriterion("date in", values, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateNotIn(List<Date> values) {
+            addCriterion("date not in", values, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateBetween(Date value1, Date value2) {
+            addCriterion("date between", value1, value2, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andDateNotBetween(Date value1, Date value2) {
+            addCriterion("date not between", value1, value2, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeIsNull() {
+            addCriterion("time_consume is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeIsNotNull() {
+            addCriterion("time_consume is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeEqualTo(String value) {
+            addCriterion("time_consume =", value, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeNotEqualTo(String value) {
+            addCriterion("time_consume <>", value, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeGreaterThan(String value) {
+            addCriterion("time_consume >", value, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeGreaterThanOrEqualTo(String value) {
+            addCriterion("time_consume >=", value, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeLessThan(String value) {
+            addCriterion("time_consume <", value, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeLessThanOrEqualTo(String value) {
+            addCriterion("time_consume <=", value, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeLike(String value) {
+            addCriterion("time_consume like", value, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeNotLike(String value) {
+            addCriterion("time_consume not like", value, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeIn(List<String> values) {
+            addCriterion("time_consume in", values, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeNotIn(List<String> values) {
+            addCriterion("time_consume not in", values, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeBetween(String value1, String value2) {
+            addCriterion("time_consume between", value1, value2, "timeConsume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeConsumeNotBetween(String value1, String value2) {
+            addCriterion("time_consume not between", value1, value2, "timeConsume");
             return (Criteria) this;
         }
     }

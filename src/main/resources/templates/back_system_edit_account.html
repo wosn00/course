@@ -50,12 +50,12 @@
 </ul>
 <div class="layui-container" style="margin-left: -1%;">
     <div class="layui-row">
-        <div class="layui-col-md3">
+        <div class="layui-col-md3" style="margin-left: -1%">
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
 
                 <li class="layui-nav-item layui-this"><a href="/back_system">账号</a></li>
-                <li class="layui-nav-item"><a href="">答题日志</a></li>
-                <li class="layui-nav-item"><a href="">登录日志</a></li>
+                <li class="layui-nav-item"><a href="/back_system_answer_record">答题日志</a></li>
+                <li class="layui-nav-item"><a href="/back_system_login_record">登录日志</a></li>
             </ul>
 
         </div>
@@ -95,7 +95,7 @@
                 <div class="layui-form-item" pane>
                     <label class="layui-form-label">学号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="studentID" required lay-verify="required" autocomplete="off"
+                        <input type="text" name="studentid" required lay-verify="required" autocomplete="off"
                                class="layui-input" th:value="${session.editAccount.studentid}">
                     </div>
                 </div>

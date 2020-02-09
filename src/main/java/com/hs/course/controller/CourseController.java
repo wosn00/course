@@ -122,7 +122,6 @@ public class CourseController {
                 totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
             } catch (Exception e) {
                 //TODO
-                e.printStackTrace();
                 System.out.println("==========出现重复做题（正确）==========");
             }
             return Result.<Map>builder()
@@ -136,7 +135,6 @@ public class CourseController {
                 totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
             } catch (Exception e) {
                 //TODO
-                e.printStackTrace();
                 System.out.println("==========出现重复做题（错误）==========");
             }
             return Result.<Map>builder()

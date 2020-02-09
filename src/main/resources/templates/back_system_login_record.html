@@ -46,30 +46,32 @@
     <div class="layui-row">
         <div class="layui-col-md3" style="margin-left: -1%">
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-
-                <li class="layui-nav-item layui-this"><a href="/back_system">账号</a></li>
+                <li class="layui-nav-item"><a href="/back_system">账号</a></li>
                 <li class="layui-nav-item"><a href="/back_system_answer_record">答题日志</a></li>
-                <li class="layui-nav-item"><a href="/back_system_login_record">登录日志</a></li>
+                <li class="layui-nav-item layui-this"><a href="/back_system_login_record">登录日志</a></li>
             </ul>
 
         </div>
-        <div class="layui-col-md9">
+        <div class="layui-col-md9" style="margin-left: -5%;">
 
             <!--分页-->
-            <script type="text/javascript" src="/js/backsystem/account_fenye.js"></script>
+            <script type="text/javascript" src="/js/backsystem/record-login-fenye.js"></script>
             <div class="layui-row">
-                <table class="layui-table choice-table">
+                <table class="layui-table choice-table" style="width: 130%">
                     <thead>
                     <tr>
                         <th style="width: 3%;text-align: center">id</th>
-                        <th style="width: 10%;text-align: center">账号</th>
-                        <th style="width: 10%;text-align: center">密码</th>
-                        <th style="width: 9%;text-align: center">班级</th>
-                        <th style="width: 9%;text-align: center">学号</th>
-                        <th style="width: 9%;text-align: center">手机号</th>
-                        <th style="width: 13%;text-align: center">注册日期</th>
-                        <th style="width: 9%;text-align: center">角色</th>
-                        <th style="width: 6%;text-align: center">修改</th>
+                        <th style="width: 10%;text-align: center">输入账号</th>
+                        <th style="width: 10%;text-align: center">输入密码</th>
+                        <th style="width: 9%;text-align: center">正确密码</th>
+                        <th style="width: 9%;text-align: center">来源</th>
+                        <th style="width: 9%;text-align: center">浏览器</th>
+                        <th style="width: 13%;text-align: center">系统</th>
+                        <th style="width: 9%;text-align: center">ip</th>
+                        <th style="width: 6%;text-align: center">登录结果</th>
+                        <th style="width: 20%;text-align: center">定位</th>
+                        <th style="width: 6%;text-align: center">耗时(ms)</th>
+                        <th style="width: 6%;text-align: center">时间</th>
                     </tr>
                     </thead>
 

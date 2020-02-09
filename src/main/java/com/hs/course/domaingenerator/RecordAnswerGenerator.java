@@ -1,5 +1,7 @@
 package com.hs.course.domaingenerator;
 
+import java.util.Date;
+
 public class RecordAnswerGenerator {
     private Integer id;
 
@@ -14,6 +16,10 @@ public class RecordAnswerGenerator {
     private Integer problemId;
 
     private String userAnswer;
+
+    private Date date;
+
+    private String timeConsume;
 
     public Integer getId() {
         return id;
@@ -69,5 +75,21 @@ public class RecordAnswerGenerator {
 
     public void setUserAnswer(String userAnswer) {
         this.userAnswer = userAnswer == null ? null : userAnswer.trim();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getTimeConsume() {
+        return timeConsume;
+    }
+
+    public void setTimeConsume(String timeConsume) {
+        this.timeConsume = timeConsume == null ? null : timeConsume.trim();
     }
 }
