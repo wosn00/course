@@ -21,6 +21,10 @@ function showReocrd(pageNo, pageSize) {
                 //管理员的修改权限
                 var td6 = $("<td onclick='update_this(this)' style='cursor: pointer;text-align: center'></td>").html('<i class="layui-icon layui-icon-edit" "></i>');
                 var tr = $("<tr></tr>").append(td, td2).append(td3).append(td4).append(td5).append(td_in).append(td6);
+                let auth = $("#update-auth").text();
+                if (auth === ""){
+                    var tr = $("<tr></tr>").append(td, td2).append(td3).append(td4).append(td5).append(td_in);
+                }
                 $('tbody').append(tr);
             }
             $("#count").text(data.count)

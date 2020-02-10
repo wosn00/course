@@ -39,7 +39,7 @@
     <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
     <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
     <li style="float: right" class="layui-nav-item layui-this"><a href="/main">课程主页</a></li>
-    <li style="float: right" class="layui-nav-item"><a href="/back_system">后台系统</a></li>
+    <li style="float: right" class="layui-nav-item" shiro:hasRole="1"><a href="/back_system">后台系统</a></li>
 
 </ul>
 
@@ -56,7 +56,7 @@
             <th style="width: 80px;text-align: center">题号</th>
             <th style="text-align: center">题目</th>
             <th style="width: 9%;text-align: center">点击作答</th>
-            <th style="width: 9%;text-align: center">修改</th>
+            <th id="update-auth" style="width: 9%;text-align: center" shiro:hasRole="1">修改</th>
         </tr>
         </thead>
 

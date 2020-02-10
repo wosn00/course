@@ -11,6 +11,7 @@ import com.hs.course.domaingenerator.RecordLoginGenerator;
 import com.hs.course.domaingenerator.UserGenerator;
 import com.hs.course.entity.Result;
 import com.hs.course.entity.User;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 

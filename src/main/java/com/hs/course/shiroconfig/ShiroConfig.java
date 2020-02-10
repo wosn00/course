@@ -23,17 +23,42 @@ public class ShiroConfig {
         filterMap.put("/js/**", "anon");
         filterMap.put("/images/**", "anon");
         filterMap.put("/font/**", "anon");
+        filterMap.put("/layui/**", "anon");
         //页面
         filterMap.put("/", "anon");
         filterMap.put("/login", "anon");
         filterMap.put("/index", "anon");
         filterMap.put("/register/**","anon");
-        filterMap.put("/course/**","anon");
-
-//        filterMap.put("/**", "authc");
+        //角色授权的页面必须要anon
+        filterMap.put("/edit_choice", "anon");
+        filterMap.put("/edit_summary", "anon");
+        filterMap.put("/updateChoice", "anon");
+        filterMap.put("/updateSummary", "anon");
+        filterMap.put("/accountFenye", "anon");
+        filterMap.put("/back_system_edit_account", "anon");
+        filterMap.put("/updateAccount", "anon");
+        filterMap.put("/recordAnswerFenye", "anon");
+        filterMap.put("/recordLoginFenye", "anon");
+        filterMap.put("/edit_choice/**", "anon");
+        filterMap.put("/back_system*", "anon");
+        //认证
+        filterMap.put("/**", "authc");
+        //管理员权限
+        filterMap.put("/edit_choice", "roles[1]");
+        filterMap.put("/edit_summary", "roles[1]");
+        filterMap.put("/updateChoice", "roles[1]");
+        filterMap.put("/updateSummary", "roles[1]");
+        filterMap.put("/accountFenye", "roles[1]");
+        filterMap.put("/back_system_edit_account", "roles[1]");
+        filterMap.put("/updateAccount", "roles[1]");
+        filterMap.put("/recordAnswerFenye", "roles[1]");
+        filterMap.put("/recordLoginFenye", "roles[1]");
+        filterMap.put("/edit_choice/**", "roles[1]");
+        filterMap.put("/back_system*", "roles[1]");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         shiroFilterFactoryBean.setLoginUrl("/index");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/index");
         return shiroFilterFactoryBean;
     }
 
