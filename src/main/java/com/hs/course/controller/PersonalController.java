@@ -105,5 +105,13 @@ public class PersonalController {
                 .data(vo)
                 .build();
     }
+    /**
+     * 退出登录
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "/index";
+    }
 
 }
