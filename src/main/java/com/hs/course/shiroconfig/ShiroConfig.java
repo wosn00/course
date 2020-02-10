@@ -29,6 +29,7 @@ public class ShiroConfig {
         filterMap.put("/login", "anon");
         filterMap.put("/index", "anon");
         filterMap.put("/register/**","anon");
+        filterMap.put("/error_occurred","anon");
         //角色授权的页面必须要anon
         filterMap.put("/edit_choice", "anon");
         filterMap.put("/edit_summary", "anon");
