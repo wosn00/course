@@ -11,6 +11,7 @@ import com.hs.course.entity.User;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,10 +50,11 @@ public class CourseController {
     }
 
     /**
-     * 可复用的选择题分页查询
+     * 复用
+     * 选择题分页查询
      * @return 页数+选择题List
      */
-    @RequestMapping("/choiceFenye")
+    @GetMapping("/choiceFenye")
     @ResponseBody
     public Map<String, Object> jizuChoiceQuestion(int pageNo, int pageSize, int course, int chapter) {
         int count = choiceService.selCount(course, chapter);
@@ -64,6 +66,7 @@ public class CourseController {
     }
 
     /**
+     * 复用
      * 选择题详情，通过题目id或题目countno查询
      * @param id 题目id
      * @param countno 题目题号

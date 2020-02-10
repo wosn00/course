@@ -1,7 +1,6 @@
 package com.hs.course.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import eu.bitwalker.useragentutils.UserAgent;
 import org.apache.commons.lang.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;

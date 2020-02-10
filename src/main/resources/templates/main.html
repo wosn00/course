@@ -30,15 +30,14 @@
     <li style="float: right" class="layui-nav-item">
         <a href="javascript:;" th:text="${session.user.name}"></a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
-            <dd><a href="">修改信息</a></dd>
+            <dd><a href="/personal_infomation">修改信息</a></dd>
             <dd><a href="">退出登录</a></dd>
         </dl>
     </li>
     <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
     <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
     <li style="float: right" class="layui-nav-item layui-this"><a href="/main">课程主页</a></li>
-    <li style="float: right" class="layui-nav-item"><a href="/back_system">后台</a></li>
-
+    <li style="float: right" class="layui-nav-item"><a href="/back_system">后台系统</a></li>
 </ul>
 
 
@@ -106,12 +105,12 @@
             </div>
         </div>
         <div id="crm" class="soft_con2" style="display:none">
-            <div class="function1">
+            <div class="function1 shugouPractice">
                 <img src="images/tab/pic_fun_k_detailed_004.gif"/>
                 <p class="p1">练习模式</p>
                 <p class="p2">选择章节进入答题.</p>
             </div>
-            <div class="function1">
+            <div class="function1 shugouExam">
                 <img src="images/tab/pic_fun_crm_detailed_002.gif"/>
                 <p class="p1">考试模式</p>
                 <p class="p2">随机生成试题</p>

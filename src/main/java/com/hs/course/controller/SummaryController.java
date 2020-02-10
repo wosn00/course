@@ -41,13 +41,14 @@ public class SummaryController {
      * @param chapter 章节
      */
     @RequestMapping("/jizu_summary/{chapter}")
-    public String choiceQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
+    public String summaryQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
         session.setAttribute("jizuChapter", chapter);
         return "jizu_summary";
     }
 
     /**
-     * 可复用的简答题分页查询
+     * 复用
+     * 简答题分页查询
      *
      * @return 页数+简答题List
      */
@@ -63,13 +64,13 @@ public class SummaryController {
     }
 
     /**
-     * 选择题详情，通过题目id或题目countno查询
+     * 简答题详情，通过题目id或题目countno查询
      *
      * @param id      题目id
      * @param countno 题目题号
      */
     @RequestMapping("/summary_detail/{course}/{chapter}/{id}")
-    public String choiceDetail(@PathVariable("id") int id, @PathVariable("chapter") int chapter
+    public String summaryDetail(@PathVariable("id") int id, @PathVariable("chapter") int chapter
             , @PathVariable("course") int course, @RequestParam(required = false) Integer countno, HttpSession session) {
         Summary summary;
         if (countno != null) {

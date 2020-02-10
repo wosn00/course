@@ -52,6 +52,7 @@ public class ExamController {
     private AnswerMatching answerMatching;
 
     /**
+     * 复用
      * @param course 课程
      * @return 题目
      */
@@ -62,7 +63,6 @@ public class ExamController {
         int num = 20;
         query.put("num", num);
         HashMap<Object, Object> res = new HashMap<>();
-        if (course.equals("1")) {
             query.put("course", course);
             List<Choice> choices = choiceMapper.selByRand(query);
             //为每条选择题加上从1开始的序号
@@ -77,10 +77,6 @@ public class ExamController {
                 summaries.get(i).setCountno(i + 1);
             }
             res.put("summaries", summaries);
-        } else {
-            //TODO
-            //添加数据结构课程的考试题
-        }
         return res;
     }
 

@@ -3,7 +3,7 @@
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
-    <title>错题集</title>
+    <title>数据结构简答题</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -37,26 +37,25 @@
         </dl>
     </li>
     <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
-    <li style="float: right" class="layui-nav-item layui-this"><a href="/questions">错题集</a></li>
-    <li style="float: right" class="layui-nav-item"><a href="/main">课程主页</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
+    <li style="float: right" class="layui-nav-item layui-this"><a href="/main">课程主页</a></li>
     <li style="float: right" class="layui-nav-item"><a href="/back_system">后台系统</a></li>
 
 </ul>
 
-
 <!--分页-->
-<script type="text/javascript" src="/js/questions_fenye.js"></script>
+<script th:inline="javascript">
+    var shugouChapter = [[${session.shugouChapter}]];
+</script>
+<script type="text/javascript" src="/js/shugou/shugou_summary_fenye.js"></script>
 <div class="layui-row">
     <table class="layui-table choice-table">
         <thead>
         <tr>
-            <th style="width: 10%;text-align: center">课程</th>
-            <th style="width: 7%;text-align: center">章节</th>
-            <th style="width: 8%;text-align: center">类型</th>
+            <th style="width: 80px;text-align: center">题号</th>
             <th style="text-align: center">题目</th>
-            <th style="width: 11%;text-align: center">做题时间</th>
             <th style="width: 9%;text-align: center">点击作答</th>
-            <th style="width: 9%;text-align: center">删除</th>
+            <th style="width: 9%;text-align: center">修改</th>
         </tr>
         </thead>
 

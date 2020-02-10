@@ -34,16 +34,20 @@
 </head>
 <body>
 <div class="layui-row">
-    <ul class="layui-nav " lay-filter="">
-        <li class="layui-nav-item layui-nav-item-1 layui-this"><a href="">课程主页</a></li>
-        <li class="layui-nav-item"><a href="">个人中心</a></li>
-        <li class="layui-nav-item">
-            <a href="javascript:;"></a>
+    <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item"><a>Welcome !</a></li>
+        <li style="float: right" class="layui-nav-item">
+            <a href="javascript:;" th:text="${session.user.name}"></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a href="">修改信息</a></dd>
+                <dd><a href="/personal_infomation">修改信息</a></dd>
                 <dd><a href="">退出登录</a></dd>
             </dl>
         </li>
+        <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
+        <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
+        <li style="float: right" class="layui-nav-item layui-this"><a href="/main">课程主页</a></li>
+        <li style="float: right" class="layui-nav-item"><a href="/back_system">后台系统</a></li>
+
     </ul>
 </div>
 <div class="layui-container">
@@ -114,10 +118,14 @@
     </form>
     <div class="layui-row" style="margin-left: 10%;margin-top: 3%">
         <button type="button" class="layui-btn" id="choice-btn">保存</button>
+        <span th:if="${session.editChoice.course} == 1">
         <a th:href="@{'/jizu_choicequestion/'+${session.backChapter}}" class="layui-btn layui-btn-primary">返回</a>
-    </div>
+        </span>
+        <span th:if="${session.editChoice.course} == 2">
+        <a th:href="@{'/shugou_choicequestion/'+${session.backChapter}}" class="layui-btn layui-btn-primary">返回</a>
+        </span>
 
-</div>
+    </div>
 
 </body>
 </html>
