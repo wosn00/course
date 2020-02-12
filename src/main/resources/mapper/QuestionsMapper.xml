@@ -6,7 +6,7 @@
 
     <select id="selToFenye" parameterType="map" resultType="com.hs.course.domaingenerator.QuestionsGenerator">
         select *
-        from Questions
+        from questions
         where userid=#{userId}
         limit #{pageNo},#{pageSize}
     </select>

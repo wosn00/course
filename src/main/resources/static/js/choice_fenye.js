@@ -14,7 +14,7 @@ function showReocrd(pageNo, pageSize) {
             for (var i = 0; i < data.list.length; i++) {
                 var td = $("<td style='text-align: center'></td>").text(data.list[i].countno);
                 var td2 = $("<td></td>").text(data.list[i].title);
-                var td_in = $("<td onclick='jump_detail(this)' style='cursor: pointer;text-align: center'></td>").html('<i class="layui-icon layui-icon-next" "></i>');
+                var td_in = $("<td onclick='jump_detail(this)' style='cursor: pointer;text-align: center'></td>").html('<span style="color: blue;text-decoration: underline">进入答题</span>');
                 var td3 = $("<td style='display: none'></td>").text(data.list[i].id);
                 var td4 = $("<td style='display: none'></td>").text(data.list[i].course);
                 var td5 = $("<td style='display: none'></td>").text(data.list[i].chapter);
@@ -53,7 +53,7 @@ setTimeout(function () {
                 , prev: '上一页'                 //上一页文本
                 , netx: '下一页'                 //下一页文本
                 , first: 1                      //首页文本
-                , last: 100                     //尾页文本
+                , last: 10                     //尾页文本
                 , layout: ['prev', 'page', 'next', 'limit', 'refresh', 'skip']
                 //跳转页码时调用
                 , jump: function (obj, first) { //obj为当前页的属性和方法，第一次加载first为true

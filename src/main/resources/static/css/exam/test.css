@@ -46,7 +46,7 @@
 .nr_right{width:280px; height:100%; float:right;}
 .nr_rt_main{width:100%; height:auto;}
 
-.rt_nr1{width:280px; position:fixed; top:15px; z-index:1000;}
+.rt_nr1{width:280px; position:absolute; top:15px; z-index:1000;}
 .rt_nr1_title{width:280px; height:45px; line-height:45px; background:#f3f3f3;}
 .rt_nr1_title h1{width:130px; height:45px; background:#389fc3; text-align:center; font-size:14px; display:block; float:left; color:#fff;}
 .rt_nr1_title h1 i{padding:0 5px; font-size:14px; font-weight:normal;}

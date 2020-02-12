@@ -40,7 +40,6 @@ public class QuestionsController {
     private QuestionsMapper questionsMapper;
     @Autowired
     private QuestionsGeneratorMapper questionsGeneratorMapper;
-    // TODO 后续添加数据结构部分
 
 
     /**

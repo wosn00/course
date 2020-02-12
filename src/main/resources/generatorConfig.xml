@@ -13,7 +13,7 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <!--TODO 部署服务器需改动-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/course_project" userId="root" password="a994387039">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://122.51.198.119:3306/course_project" userId="root" password="a994387039">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>

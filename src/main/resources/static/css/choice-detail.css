@@ -7,7 +7,7 @@
 }
 
 .layer-text {
-    box-shadow: 5px 30px 30px #333333;
+    box-shadow: 1px 20px 50px 10px rgba(0,0,0,0.2);
     border-radius: 10px;
     width: 66%;
     font-size: 120%;
@@ -26,7 +26,7 @@
     width: 80%;
     margin-top: 5%;
     text-align: center;
-    box-shadow: 8px 10px 20px #333333;
+    box-shadow: 1px 7px 14px -5px rgba(0,0,0,0.2);
     border-radius: 5px;
 }
 

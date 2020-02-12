@@ -20,6 +20,18 @@ $(function () {
     $(".shugouExam").click(function () {
         window.location.href = "/exam?course=2";
     });
+    $(".jizuGraduate").click(function () {
+        $.message({
+            message: 'Not Open Now',
+            type: 'error'
+        });
+    });
+    $(".shugouGraduate").click(function () {
+        $.message({
+            message: 'Not Open Now',
+            type: 'error'
+        });
+    });
 
 
 
