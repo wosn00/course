@@ -2,11 +2,13 @@ package com.hs.course.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DataConversion {
     /**
@@ -73,26 +75,51 @@ public class DataConversion {
     /**
      * 获取请求ip
      */
-    public static String getAddress(HttpServletRequest request){
-        String ip = request.getHeader("X-Forwarded-For");
-        if (StringUtils.isNotEmpty(ip) && !"unKnow".equalsIgnoreCase(ip)) {
+    public static String getAddress(HttpServletRequest request) {
+        /**
+         * 获取Ip地址
+         * @param request
+         * @return
+         */
+        String Xip = request.getHeader("X-Real-IP");
+        String XFor = request.getHeader("X-Forwarded-For");
+        if (StringUtils.isNotEmpty(XFor) && !"unKnown".equalsIgnoreCase(XFor)) {
             //多次反向代理后会有多个ip值，第一个ip才是真实ip
-            String[] ipList = ip.split(",");
-            ip = ipList[0];
-        } else {
-            ip = request.getHeader("X-Real-IP");
-            if (StringUtils.isEmpty(ip) || "unKnown".equalsIgnoreCase(ip)) {
-                ip = request.getRemoteAddr();
+            int index = XFor.indexOf(",");
+            if (index != -1) {
+                return XFor.substring(0, index);
+            } else {
+                return XFor;
             }
         }
-        return ip;
+        XFor = Xip;
+        if (StringUtils.isNotEmpty(XFor) && !"unKnown".equalsIgnoreCase(XFor)) {
+            return XFor;
+        }
+        if (StringUtils.isBlank(XFor) || "unknown".equalsIgnoreCase(XFor)) {
+            XFor = request.getHeader("Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(XFor) || "unknown".equalsIgnoreCase(XFor)) {
+            XFor = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(XFor) || "unknown".equalsIgnoreCase(XFor)) {
+            XFor = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (StringUtils.isBlank(XFor) || "unknown".equalsIgnoreCase(XFor)) {
+            XFor = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (StringUtils.isBlank(XFor) || "unknown".equalsIgnoreCase(XFor)) {
+            XFor = request.getRemoteAddr();
+        }
+        return XFor;
     }
 
-    public static String getDetailAddress(JSONObject jsonObject){
+
+    public static String getDetailAddress(JSONObject jsonObject) {
         String s = "";
-        if (!jsonObject.getString("status").equals("0")){
-            System.out.println("======================="+jsonObject.getString("status"));
-            s="百度API状态异常";
+        if (!jsonObject.getString("status").equals("0")) {
+            System.out.println("=======================" + jsonObject.getString("status"));
+            s = "百度API状态异常";
             return s;
         }
         String province = jsonObject.getJSONObject("content").getJSONObject("address_detail").getString("province");
@@ -100,7 +127,7 @@ public class DataConversion {
         String district = jsonObject.getJSONObject("content").getJSONObject("address_detail").getString("district");
         String street = jsonObject.getJSONObject("content").getJSONObject("address_detail").getString("street");
         String streetNumber = jsonObject.getJSONObject("content").getJSONObject("address_detail").getString("street_number");
-        s=province+city+district+street+streetNumber;
+        s = province + city + district + street + streetNumber;
         return s;
     }
 

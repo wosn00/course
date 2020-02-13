@@ -11,6 +11,6 @@ import java.util.Map;
 @Mapper
 public interface QuestionsMapper {
     List<QuestionsGenerator> selToFenye(Map map);
-    Integer selCount();
+    Integer selCount(int userid);
 
 }

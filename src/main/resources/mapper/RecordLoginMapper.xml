@@ -6,7 +6,7 @@
 
     <select id="selFenye" parameterType="map" resultType="com.hs.course.domaingenerator.RecordLoginGenerator">
         select *
-        from ( select *FROM record_login ORDER BY date desc) temp
+        from ( select *FROM record_login ORDER BY id desc) temp
         limit #{pageId},#{pageSize}
     </select>
 

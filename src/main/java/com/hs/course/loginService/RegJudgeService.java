@@ -1,13 +1,16 @@
 package com.hs.course.loginService;
 
 import com.hs.course.dao.UserMapper;
+import com.hs.course.domaingenerator.UserGenerator;
 import com.hs.course.entity.Status;
 import com.hs.course.entity.User;
 import com.hs.course.stateEnum.LoginState;
+import com.hs.course.utils.DataConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Service
 public class RegJudgeService {
@@ -36,7 +39,15 @@ public class RegJudgeService {
             Status status = new Status(LoginState.HTTP_208.getCode(), LoginState.HTTP_208.getMsg());
             return status;
         }
-        User user = new User(name, pwd, phone, 2);
+        UserGenerator user = new UserGenerator();
+        user.setName(name);
+        user.setPhone(phone);
+        user.setPwd(pwd);
+        user.setRole(2);
+        long now = System.currentTimeMillis();
+        Date date = DataConversion.getDate(now);
+        System.out.println("====================="+date+"++++++++++++++++++++++");
+        user.setDate(date);
         userMapper.regSaveUser(user);
         Status status = new Status(LoginState.HTTP_200.getCode(), LoginState.HTTP_200.getMsg());
 

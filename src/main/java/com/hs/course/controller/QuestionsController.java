@@ -85,7 +85,7 @@ public class QuestionsController {
             questionsVoList.add(questionsVo);
         });
         //查询总条数
-        Integer count = questionsMapper.selCount();
+        Integer count = questionsMapper.selCount(userId);
         HashMap<String, Object> vo = new HashMap<>();
         vo.put("data", questionsVoList);
         vo.put("count", count);

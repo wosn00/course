@@ -29,5 +29,9 @@ class CourseApplicationTests {
             e.printStackTrace();
         }
     }
+    @Test
+    void text(){
+        System.out.println(new Date());
+    }
 
 }

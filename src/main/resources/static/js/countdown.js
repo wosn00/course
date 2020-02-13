@@ -1,7 +1,7 @@
 function countdown(obj){
 
 		var that = $(obj);
-		 var seconds = 5;
+		 var seconds = 60;
 		 that.removeAttr('onclick');
 		 that.html(seconds+'秒');
 	     let promise = new Promise((resolve, reject) => {

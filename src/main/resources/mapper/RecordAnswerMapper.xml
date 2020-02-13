@@ -5,7 +5,9 @@
 <mapper namespace="com.hs.course.dao.RecordAnswerMapper">
 
     <select id="selFenye" parameterType="map" resultType="com.hs.course.domaingenerator.RecordAnswerGenerator">
-        select * from record_answer limit #{pageId},#{pageSize}
+        select * from
+         ( select *FROM record_answer ORDER BY id desc) temp
+         limit #{pageId},#{pageSize}
     </select>
 
 </mapper>
