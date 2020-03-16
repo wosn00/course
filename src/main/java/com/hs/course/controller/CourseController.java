@@ -9,6 +9,8 @@ import com.hs.course.entity.Choice;
 import com.hs.course.entity.Result;
 import com.hs.course.entity.User;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,7 @@ public class CourseController {
     private ChoiceGeneratorMapper choiceGeneratorMapper;
     @Autowired
     private TotalAnswerGeneratorMapper totalAnswerGeneratorMapper;
+    private static Logger logger = LoggerFactory.getLogger(CourseController.class);
 
     @RequestMapping("/{pageNme}")
     public String jump(@PathVariable String pageNme) {
@@ -45,6 +48,7 @@ public class CourseController {
      */
     @RequestMapping("/jizu_choicequestion/{chapter}")
     public String choiceQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
+        logger.info("进入选择题，第 {} 章",chapter);
         session.setAttribute("jizuChapter", chapter);
         return "jizu_choicequestion";
     }
@@ -74,6 +78,7 @@ public class CourseController {
     @RequestMapping("/choice_detail/{course}/{chapter}/{id}")
     public String choiceDetail(@PathVariable("id") int id,@PathVariable("chapter") int chapter
             ,@PathVariable("course") int course,@RequestParam(required = false) Integer countno, HttpSession session) {
+        logger.info("进入选择题，第 {} 章，第 {} 题",chapter,id);
         Choice choice;
         if (countno != null){
              choice = choiceService.selCountno(course,chapter,-1,countno);
@@ -100,6 +105,7 @@ public class CourseController {
     @RequestMapping("/answerJudge")
     @ResponseBody
     public Result<Map> choiceAnswerJudge(Integer id, String answer, HttpSession session) {
+        logger.info("进入选择题答题，回答答案: {}",answer);
         //获取userName
         User user= (User) session.getAttribute("user");
         String userName=user.getName();
@@ -124,8 +130,7 @@ public class CourseController {
             try {
                 totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
             } catch (Exception e) {
-                //TODO
-                System.out.println("==========出现重复做题（正确）==========");
+                logger.info("========用户出现重复做题：回答正确========");
             }
             return Result.<Map>builder()
                     .code(1)
@@ -137,8 +142,7 @@ public class CourseController {
             try {
                 totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
             } catch (Exception e) {
-                //TODO
-                System.out.println("==========出现重复做题（错误）==========");
+                logger.info("========用户出现重复做题：回答错误========");
             }
             return Result.<Map>builder()
                     .code(0)

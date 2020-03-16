@@ -11,7 +11,8 @@ import com.hs.course.domaingenerator.RecordLoginGenerator;
 import com.hs.course.domaingenerator.UserGenerator;
 import com.hs.course.entity.Result;
 import com.hs.course.entity.User;
-import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class BackSystemController {
     private RecordLoginGeneratorMapper recordLoginGeneratorMapper;
     @Autowired
     private RecordLoginMapper recordLoginMapper;
+    private static Logger logger = LoggerFactory.getLogger(BackSystemController.class);
 
     @GetMapping("/accountFenye")
     @ResponseBody
@@ -69,6 +71,7 @@ public class BackSystemController {
     @PostMapping("/updateAccount")
     @ResponseBody
     public Result updateAccount(UserGenerator userGenerator){
+        logger.info("更新账号信息：{}",userGenerator);
         userGeneratorMapper.updateByPrimaryKeySelective(userGenerator);
         return Result.builder()
                 .code(1)

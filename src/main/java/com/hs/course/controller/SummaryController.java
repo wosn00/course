@@ -10,6 +10,8 @@ import com.hs.course.entity.Result;
 import com.hs.course.entity.Summary;
 import com.hs.course.entity.User;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +36,7 @@ public class SummaryController {
     private SummaryGeneratorMapper summaryGeneratorMapper;
     @Autowired
     private TotalAnswerGeneratorMapper totalAnswerGeneratorMapper;
+    private static Logger logger = LoggerFactory.getLogger(SummaryController.class);
 
     /**
      * session存章节，int型
@@ -42,6 +45,7 @@ public class SummaryController {
      */
     @RequestMapping("/jizu_summary/{chapter}")
     public String summaryQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
+        logger.info("进入简答题，章节：{}",chapter);
         session.setAttribute("jizuChapter", chapter);
         return "jizu_summary";
     }
@@ -72,6 +76,7 @@ public class SummaryController {
     @RequestMapping("/summary_detail/{course}/{chapter}/{id}")
     public String summaryDetail(@PathVariable("id") int id, @PathVariable("chapter") int chapter
             , @PathVariable("course") int course, @RequestParam(required = false) Integer countno, HttpSession session) {
+        logger.info("进入简答题答题，课程：{}，章节：{}，id：{}",course,chapter,id);
         Summary summary;
         if (countno != null) {
             summary = summaryService.selCountno(course, chapter, -1, countno);
@@ -101,6 +106,7 @@ public class SummaryController {
     @RequestMapping("/summaryJudge")
     @ResponseBody
     public Result<Map> summaryJudge(int id, String answer,HttpSession session) {
+        logger.info("简答题回答，id：{}，回答：{}",id,answer);
         //获得userName
         User user = (User) session.getAttribute("user");
         String userName=user.getName();
@@ -116,6 +122,7 @@ public class SummaryController {
                     .build();
         }
         Float matching = answerMatching.matching(answer, summaryGenerator.getKeyword());
+        logger.info("简答题回答匹配度：{}",matching);
         map.put("matching", matching * 100);
         map.put("standAnswer", summaryGenerator.getAnswer());
         //存入答题数量表
@@ -129,8 +136,7 @@ public class SummaryController {
         try {
             totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
         } catch (Exception e) {
-            //TODO
-            System.out.println("=====出现重复题目，简答题======");
+           logger.info("========出现简答题重复作答========");
         }
 
         return Result.<Map>builder()

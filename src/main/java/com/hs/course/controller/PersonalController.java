@@ -10,6 +10,8 @@ import com.hs.course.entity.User;
 import com.hs.course.vo.AccuracyRateVo;
 import com.hs.course.vo.PersonalVo;
 import com.hs.course.vo.TotalCountVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,7 @@ public class PersonalController {
     private RangeCalculationService rangeCalculationService;
     @Autowired
     private AccuracyRateService accuracyRateService;
+    private static Logger logger = LoggerFactory.getLogger(PersonalController.class);
 
     /**
      * 返回个人信息
@@ -38,6 +41,7 @@ public class PersonalController {
     public Result getInformation(HttpSession session) {
         //获得个人信息
         User user = (User) session.getAttribute("user");
+        logger.info("用户获取个人信息,{}",user);
         UserGeneratorExample example = new UserGeneratorExample();
         example.createCriteria().andNameEqualTo(user.getName());
         List<UserGenerator> userGenerators = userGeneratorMapper.selectByExample(example);
@@ -59,6 +63,7 @@ public class PersonalController {
     @GetMapping("update_information")
     @ResponseBody
     public Result updateInformation(String name, String className, String studentID) {
+        logger.info("用户更新个人信息,className：{}，studentID：{}",className,studentID);
         UserGeneratorExample ex = new UserGeneratorExample();
         ex.createCriteria().andNameEqualTo(name);
         UserGenerator user = new UserGenerator();
@@ -110,6 +115,7 @@ public class PersonalController {
      */
     @GetMapping("/logout")
     public String logout(HttpSession session){
+        logger.info("用户退出登录");
         session.invalidate();
         return "index";
     }

@@ -2,6 +2,8 @@ package com.hs.course.controller;
 
 import com.hs.course.courseService.ChoiceService;
 import com.hs.course.entity.Choice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,7 @@ import java.util.Map;
  */
 @Controller
 public class ShugouCourseController {
+    private static Logger logger = LoggerFactory.getLogger(ShugouCourseController.class);
 
 
     /**
@@ -26,6 +29,7 @@ public class ShugouCourseController {
      */
     @RequestMapping("/shugou_choicequestion/{chapter}")
     public String choiceQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
+        logger.info("进入数据结构选择题，章节：{}",chapter);
         session.setAttribute("shugouChapter", chapter);
         return "shugou_choicequestion";
     }
@@ -36,6 +40,7 @@ public class ShugouCourseController {
      */
     @RequestMapping("/shugou_summary/{chapter}")
     public String summaryQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
+        logger.info("进入数据结构简答题，章节：{}",chapter);
         session.setAttribute("shugouChapter", chapter);
         return "shugou_summary";
     }
