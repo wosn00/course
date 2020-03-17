@@ -28,7 +28,7 @@ public class UserRealm extends AuthorizingRealm {
         int role = userMapper.findRoleByName(user.getName());
         //权限添加到shiro中
         info.addRole(String.valueOf(role));
-        System.out.println("=====================执行授权逻辑+=======================");
+//        System.out.println("=====================执行授权逻辑+=======================");
         return info;
     }
 

@@ -47,11 +47,11 @@ class CourseApplicationTests {
         user.setClassName("一班");
         user.setRole(2);
         user.setId(12);
-        Exception exception = new Exception("异常例子");
+//        Exception exception = new Exception("异常例子");
         logger.info("用户信息：{}",user);
         logger.info("打印日志测试。。。。。。。。。。。。{}。",233);
         logger.info("打印日志测试。。。。。。。。。。{}。。。","占位符");
-        logger.error("异常例子:",exception);
+//        logger.error("异常例子:",exception);
         logger.info("打印日志测试。。。。。。。。。。。。。");
         logger.info("打印日志测试。。。。。。。。。。。。。");
         logger.error("出错啦啦啦啦啦啦啦啦啦。。。。。");
