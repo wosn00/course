@@ -42,6 +42,7 @@ public class ShiroConfig {
         filterMap.put("/recordLoginFenye", "anon");
         filterMap.put("/edit_choice/**", "anon");
         filterMap.put("/back_system*", "anon");
+        filterMap.put("/search", "anon");
         //认证
         filterMap.put("/**", "authc");
         //管理员权限

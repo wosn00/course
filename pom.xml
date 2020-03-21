@@ -158,28 +158,50 @@
             <properties>
                 <env>dev</env>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
         <!--生产环境-->
         <profile>
-            <id>pro</id>
+            <id>prod</id>
             <properties>
-                <env>pro</env>
+                <env>prod</env>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
     </profiles>
 
     <build>
         <finalName>course</finalName>
         <filters>
-            <filter>src/main/resources/filters/application-${env}.properties</filter>
+            <filter>src/main/filters/application-${env}.properties</filter>
         </filters>
+        <!--要防止静态文件被maven解析干扰-->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <excludes>
+                    <exclude>static/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>static/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>static/**</exclude>
+                </excludes>
             </resource>
         </resources>
         <plugins>
