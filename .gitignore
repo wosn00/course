@@ -4,6 +4,7 @@ target/
 !**/src/test/**
 mvnw
 mvnw.cmd
+classes/
 
 
 ### STS ###

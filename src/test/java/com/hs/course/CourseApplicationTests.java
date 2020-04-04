@@ -2,23 +2,13 @@ package com.hs.course;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.hs.course.courseService.AccuracyRateService;
-import com.hs.course.entity.Choice;
 import com.hs.course.entity.User;
 import com.hs.course.utils.HttpClientUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
-
-import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @SpringBootTest
 class CourseApplicationTests {
