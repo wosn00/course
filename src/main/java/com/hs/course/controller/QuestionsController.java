@@ -14,6 +14,8 @@ import com.hs.course.domaingenerator.UserGeneratorExample;
 import com.hs.course.entity.Result;
 import com.hs.course.entity.User;
 import com.hs.course.vo.QuestionsVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +42,7 @@ public class QuestionsController {
     private QuestionsMapper questionsMapper;
     @Autowired
     private QuestionsGeneratorMapper questionsGeneratorMapper;
-    // TODO 后续添加数据结构部分
+    private static Logger logger = LoggerFactory.getLogger(QuestionsController.class);
 
 
     /**
@@ -51,6 +53,7 @@ public class QuestionsController {
     @RequestMapping("/questionsFenye")
     @ResponseBody
     public Result getQuestions(int pageNo, int pageSize, HttpSession session) {
+        logger.info("进入错题集");
         //获取当前用户id
         int userId = getUserId(session);
         //通过userId查询错题集中的相关错题list
@@ -79,14 +82,14 @@ public class QuestionsController {
             questionsVo.setId(item.getId());
             questionsVo.setUserid(userId);
             questionsVo.setProblemid(item.getProblemid());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-M-d h:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String date = simpleDateFormat.format(item.getTime());
             questionsVo.setTime(date);
             questionsVo.setType(item.getType().equals("choice") ? "选择题" : "简答题");
             questionsVoList.add(questionsVo);
         });
         //查询总条数
-        Integer count = questionsMapper.selCount();
+        Integer count = questionsMapper.selCount(userId);
         HashMap<String, Object> vo = new HashMap<>();
         vo.put("data", questionsVoList);
         vo.put("count", count);
@@ -107,6 +110,7 @@ public class QuestionsController {
     @RequestMapping("/deleteQuestions")
     @ResponseBody
     public Result deleteQuestions(int id, String type, HttpSession session) {
+        logger.info("删除错题，题目id：{}，类型：{}",id,type);
         int userId = getUserId(session);
         QuestionsGeneratorExample ex = new QuestionsGeneratorExample();
         ex.createCriteria()

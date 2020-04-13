@@ -66,10 +66,10 @@ $(function() {
 
 
 
+    //计组部分
     //选择题的跳转
     $(".choiceClick").click(function () {
         var attribute =this.getAttribute("data-chapter");
-       console.log(attribute);
        var url="/jizu_choicequestion/"+attribute;
        window.location.href=url;
     });
@@ -77,10 +77,25 @@ $(function() {
     //简答题的跳转
     $(".summaryClick").click(function () {
         var attribute =this.getAttribute("data-chapter");
-       console.log(attribute);
        var url="/jizu_summary/"+attribute;
        window.location.href=url;
     });
+
+    //数构部分
+    //选择题的跳转
+    $(".shugou-choice-click").click(function () {
+        var attribute =this.getAttribute("data-chapter");
+        var url="/shugou_choicequestion/"+attribute;
+        window.location.href=url;
+    });
+
+    //简答题的跳转
+    $(".shugou-summary-click").click(function () {
+        var attribute =this.getAttribute("data-chapter");
+        var url="/shugou_summary/"+attribute;
+        window.location.href=url;
+    });
+
 
 
 });

@@ -11,7 +11,7 @@ function showReocrd(pageNo, pageSize) {
             for (var i = 0; i < data.data.data.length; i++) {
                 var td = $("<td style='text-align: center'></td>").text(data.data.data[i].course);
                 var td2 = $("<td style='text-align: center'></td>").text(data.data.data[i].chapter);
-                var td_in = $("<td onclick='jump_detail(this)' style='cursor: pointer;text-align: center'></td>").html('<i class="layui-icon layui-icon-right" "></i>');
+                var td_in = $("<td onclick='jump_detail(this)' style='cursor: pointer;text-align: center'></td>").html('<span style="color: blue;text-decoration: underline">进入答题</span>');
                 var td3 = $("<td style='text-align: center'></td>").text(data.data.data[i].type);
                 var td4 = $("<td></td>").text(data.data.data[i].title);
                 var td5 = $("<td onclick='delete_this(this)' style='cursor: pointer;text-align: center'></td>").html('<i class="layui-icon layui-icon-close" "></i>');
@@ -47,6 +47,7 @@ setTimeout(function () {
                 , prev: '上一页'                 //上一页文本
                 , netx: '下一页'                 //下一页文本
                 , first: 1                      //首页文本
+                , last: 10                     //尾页文本
                 , layout: ['prev', 'page', 'next', 'limit', 'refresh', 'skip']
                 //跳转页码时调用
                 , jump: function (obj, first) { //obj为当前页的属性和方法，第一次加载first为true
@@ -62,7 +63,7 @@ setTimeout(function () {
         })
     });
 
-}, 300);
+}, 1000);
 
 //点击选择题跳转到该题详情
 function jump_detail(_this) {

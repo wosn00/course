@@ -15,6 +15,9 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 授权
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -25,9 +28,14 @@ public class UserRealm extends AuthorizingRealm {
         int role = userMapper.findRoleByName(user.getName());
         //权限添加到shiro中
         info.addRole(String.valueOf(role));
+//        System.out.println("=====================执行授权逻辑+=======================");
         return info;
     }
 
+
+    /**
+     * 认证
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         //通过token得到当前登录用户的信息，再去数据库查询真正的信息

@@ -2,12 +2,18 @@ package com.hs.course.controller;
 
 import com.hs.course.courseService.ChoiceService;
 import com.hs.course.daogenerator.ChoiceGeneratorMapper;
+import com.hs.course.daogenerator.TotalAnswerGeneratorMapper;
 import com.hs.course.domaingenerator.ChoiceGenerator;
+import com.hs.course.domaingenerator.TotalAnswerGenerator;
 import com.hs.course.entity.Choice;
 import com.hs.course.entity.Result;
+import com.hs.course.entity.User;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +33,9 @@ public class CourseController {
     private ChoiceService choiceService;
     @Autowired
     private ChoiceGeneratorMapper choiceGeneratorMapper;
+    @Autowired
+    private TotalAnswerGeneratorMapper totalAnswerGeneratorMapper;
+    private static Logger logger = LoggerFactory.getLogger(CourseController.class);
 
     @RequestMapping("/{pageNme}")
     public String jump(@PathVariable String pageNme) {
@@ -39,15 +48,17 @@ public class CourseController {
      */
     @RequestMapping("/jizu_choicequestion/{chapter}")
     public String choiceQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
+        logger.info("进入选择题，第 {} 章",chapter);
         session.setAttribute("jizuChapter", chapter);
         return "jizu_choicequestion";
     }
 
     /**
-     * 可复用的选择题分页查询
+     * 复用
+     * 选择题分页查询
      * @return 页数+选择题List
      */
-    @RequestMapping("/choiceFenye")
+    @GetMapping("/choiceFenye")
     @ResponseBody
     public Map<String, Object> jizuChoiceQuestion(int pageNo, int pageSize, int course, int chapter) {
         int count = choiceService.selCount(course, chapter);
@@ -59,6 +70,7 @@ public class CourseController {
     }
 
     /**
+     * 复用
      * 选择题详情，通过题目id或题目countno查询
      * @param id 题目id
      * @param countno 题目题号
@@ -66,6 +78,7 @@ public class CourseController {
     @RequestMapping("/choice_detail/{course}/{chapter}/{id}")
     public String choiceDetail(@PathVariable("id") int id,@PathVariable("chapter") int chapter
             ,@PathVariable("course") int course,@RequestParam(required = false) Integer countno, HttpSession session) {
+        logger.info("进入选择题，第 {} 章，第 {} 题",chapter,id);
         Choice choice;
         if (countno != null){
              choice = choiceService.selCountno(course,chapter,-1,countno);
@@ -92,6 +105,11 @@ public class CourseController {
     @RequestMapping("/answerJudge")
     @ResponseBody
     public Result<Map> choiceAnswerJudge(Integer id, String answer, HttpSession session) {
+        logger.info("进入选择题答题，回答答案: {}",answer);
+        //获取userName
+        User user= (User) session.getAttribute("user");
+        String userName=user.getName();
+
         ChoiceGenerator choice = choiceGeneratorMapper.selectByPrimaryKey(id);
         session.setAttribute("choiceDetail",choice);
         Map<String, String> map = new HashMap<>(16);
@@ -100,13 +118,32 @@ public class CourseController {
         if (StringUtils.isNotBlank(choice.getAnalysis())) {
             map.put("analysis", choice.getAnalysis());
         }
+        //添加做题总数表
+        TotalAnswerGenerator totalAnswerGenerator = new TotalAnswerGenerator();
+        totalAnswerGenerator.setCourse(1);
+        totalAnswerGenerator.setType("choice");
+        totalAnswerGenerator.setProblemid(id);
+        totalAnswerGenerator.setUsername(userName);
+        //判断答案是否正确
         if (choice.getAnswer().equals(answer.trim())){
+            totalAnswerGenerator.setResult(1);
+            try {
+                totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
+            } catch (Exception e) {
+                logger.info("========用户出现重复做题：回答正确========");
+            }
             return Result.<Map>builder()
                     .code(1)
                     .message("回答正确")
                     .data(map)
                     .build();
         }else {
+            totalAnswerGenerator.setResult(0);
+            try {
+                totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
+            } catch (Exception e) {
+                logger.info("========用户出现重复做题：回答错误========");
+            }
             return Result.<Map>builder()
                     .code(0)
                     .message("回答错误")

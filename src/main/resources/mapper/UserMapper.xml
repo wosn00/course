@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hs.course.dao.UserMapper">
-    <insert id="regSaveUser" parameterType="com.hs.course.entity.User">
-        insert into user(name,pwd,phone,role) values (#{name},#{pwd},#{phone},#{role})
+    <insert id="regSaveUser" parameterType="com.hs.course.domaingenerator.UserGenerator">
+        insert into user(name,pwd,phone,role,date) values (#{name},#{pwd},#{phone},#{role},#{date})
     </insert>
     <select id="findByName" parameterType="String" resultType="com.hs.course.entity.User">
         select * from user where name=#{name}
@@ -18,5 +18,8 @@
     <update id="updateByPhone" parameterType="com.hs.course.entity.User">
         update user set name = #{name} , pwd = #{pwd} where phone = #{phone}
     </update>
+    <select id="selFenye" parameterType="map" resultType="com.hs.course.entity.User">
+        select * from user limit #{pageId},#{pageSize}
+    </select>
 
 </mapper>

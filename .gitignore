@@ -4,7 +4,8 @@ target/
 !**/src/test/**
 mvnw
 mvnw.cmd
-.mvn
+classes/
+
 
 ### STS ###
 .apt_generated

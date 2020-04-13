@@ -6,12 +6,12 @@
 
     <select id="selToFenye" parameterType="map" resultType="com.hs.course.domaingenerator.QuestionsGenerator">
         select *
-        from Questions
+        from questions
         where userid=#{userId}
         limit #{pageNo},#{pageSize}
     </select>
-    <select id="selCount" resultType="Integer">
-        select count(1) from questions
+    <select id="selCount" resultType="Integer" parameterType="int">
+        select count(1) from questions where userid = #{userid}
     </select>
 
 

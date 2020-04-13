@@ -29,5 +29,16 @@
         WHERE course=#{course}
         ORDER BY RAND() limit #{num}
     </select>
+    <select id="selFuzzyFenye" parameterType="map" resultType="com.hs.course.entity.Choice">
+        select *
+        from choice
+        where title like '%${searchText}%'
+        limit #{pageId},#{pageSize}
+    </select>
+    <select id="selFuzzyCount" parameterType="String" resultType="int">
+        select count(*)
+        from choice
+        where title like '%${searchText}%'
+    </select>
 
 </mapper>

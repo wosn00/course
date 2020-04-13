@@ -6,7 +6,7 @@
     <title>选择题</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
     <!--导航样式-->
     <link rel="stylesheet" href="/css/nav.css"/>
@@ -35,17 +35,22 @@
 </head>
 <body>
 <div class="layui-row">
-<ul class="layui-nav " lay-filter="">
-    <li class="layui-nav-item layui-nav-item-1 layui-this"><a href="">课程主页</a></li>
-    <li class="layui-nav-item"><a href="">个人中心</a></li>
-    <li class="layui-nav-item">
-        <a href="javascript:;"></a>
-        <dl class="layui-nav-child"> <!-- 二级菜单 -->
-            <dd><a href="">修改信息</a></dd>
-            <dd><a href="">退出登录</a></dd>
-        </dl>
-    </li>
-</ul>
+    <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item"><span>欢迎登录，</span><span th:text="${session.user.name}"></span></li>
+        <li style="float: right" class="layui-nav-item">
+            <a href=""><img src="/images/headimg.jpg" class="layui-nav-img">我</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                <dd><a href="/personal_infomation">修改信息</a></dd>
+                <dd><a href="/logout">退出登录</a></dd>
+            </dl>
+        </li>
+        <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
+        <li style="float: right" class="layui-nav-item"><a href="/search">搜搜题</a></li>
+        <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
+        <li style="float: right" class="layui-nav-item layui-this"><a href="/main">课程主页</a></li>
+        <li style="float: right" class="layui-nav-item" shiro:hasRole="1"><a href="/back_system">后台系统</a></li>
+
+    </ul>
 </div>
 <div class="layui-container">
     <div class="layui-row">

@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="css/nav.css">
     <!--轮播-->
     <link rel="stylesheet" href="css/lunbo.css">
-
     <script>
         //注意：导航 依赖 element 模块，否则无法进行功能性操作
         layui.use('element', function () {
@@ -23,27 +22,48 @@
 
     <script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
     <script type="text/javascript" src="js/tab.js"></script>
+
+    <script src="js/lunbo/jquery.min.js"></script>
+    <script src="js/lunbo/velocity.js"></script>
+    <script src="js/lunbo/shutter.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        $(function () {
+            $('.shutter').shutter({
+                shutterW: 950, // 容器宽度
+                shutterH: 335, // 容器高度
+                isAutoPlay: true, // 是否自动播放
+                playInterval: 3000, // 自动播放时间
+                curDisplay: 3, // 当前显示页
+                fullPage: false // 是否全屏展示
+            });
+        });
+    </script>
+    <!--消息提示组件-->
+    <script type="text/javascript" src="/js/message/message.js"></script>
+    <script type="text/javascript" src="/js/message/messageIE.js"></script>
+    <link rel="stylesheet" href="/css/message.css"/>
 </head>
-<body style="background-color: #dcdcdc">
-<ul class="layui-nav" lay-filter="">
-    <li class="layui-nav-item"><a>Welcome !</a></li>
+<body style="background-color: #f8f8f8">
+<ul class="layui-nav" lay-filter="" style="min-width:1160px">
+    <li class="layui-nav-item"><span>欢迎登录，</span><span th:text="${session.user.name}"></span></li>
     <li style="float: right" class="layui-nav-item">
-        <a href="javascript:;" th:text="${session.user.name}"></a>
+        <a href=""><img src="/images/headimg.jpg" class="layui-nav-img">我</a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
-            <dd><a href="">修改信息</a></dd>
-            <dd><a href="">退出登录</a></dd>
+            <dd><a href="/personal_infomation">修改信息</a></dd>
+            <dd><a href="/logout">退出登录</a></dd>
         </dl>
     </li>
-    <li style="float: right" class="layui-nav-item"><a href="">个人中心</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/search">搜搜题</a></li>
     <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
-    <li style="float: right" class="layui-nav-item layui-this"><a href="">课程主页</a></li>
-    <li style="float: right" class="layui-nav-item"><a href="/background">后台</a></li>
-
+    <li style="float: right" class="layui-nav-item layui-this"><a href="/main">课程主页</a></li>
+    <li style="float: right" class="layui-nav-item" shiro:hasRole="1"><a href="/back_system">后台系统</a></li>
 </ul>
 
-
+<div style="padding-top:1%;margin: 0px auto 30px;width: 1160px;background-color: #fff;box-shadow:1px 20px 50px -5px rgba(0,0,0,0.2);border-radius:10px;height: 2000px">
 <!--轮播-->
-<div class="shutter">
+<div class="shutter" style="margin-top: 1%;">
     <div class="shutter-img">
         <a data-shutter-title="Iron Man"><img src="images/lunbo/shutter_1.jpg" alt="#"></a>
         <a data-shutter-title="Super Man"><img src="images/lunbo/shutter_2.jpg" alt="#"></a>
@@ -58,22 +78,6 @@
         <p>Iron Man</p>
     </div>
 </div>
-<script src="js/lunbo/jquery.min.js"></script>
-<script src="js/lunbo/velocity.js"></script>
-<script src="js/lunbo/shutter.js"></script>
-<script src="js/main.js"></script>
-<script>
-    $(function () {
-        $('.shutter').shutter({
-            shutterW: 950, // 容器宽度
-            shutterH: 335, // 容器高度
-            isAutoPlay: true, // 是否自动播放
-            playInterval: 3000, // 自动播放时间
-            curDisplay: 3, // 当前显示页
-            fullPage: false // 是否全屏展示
-        });
-    });
-</script>
 
 
 <!--选项卡-->
@@ -96,25 +100,37 @@
         <div id="xzgl" class="soft_con2">
             <div class="function1 jizuPractice">
                 <img src="images/tab/pic_fun_adm_detailed_001.gif"/>
-                <p class="p1">练习模式</p>
+                <p class="p1">刷题模式</p>
                 <p class="p2">选择章节进入答题</p>
+                <p class="p2" style="margin-top: -7%">已收录1K+题</p>
             </div>
             <div class="function1 jizuExam">
                 <img src="images/tab/pic_fun_adm_detailed_002.gif"/>
-                <p class="p1">考试模式</p>
+                <p class="p1">在线考试</p>
                 <p class="p2">随机生成试题</p>
+            </div>
+            <div class="function1 jizuGraduate">
+                <img src="images/tab/pic_fun_k_detailed_003.gif"/>
+                <p class="p1">考研专题</p>
+                <p class="p2">收录考研题库</p>
             </div>
         </div>
         <div id="crm" class="soft_con2" style="display:none">
-            <div class="function1">
+            <div class="function1 shugouPractice">
                 <img src="images/tab/pic_fun_k_detailed_004.gif"/>
-                <p class="p1">练习模式</p>
-                <p class="p2">选择章节进入答题.</p>
+                <p class="p1">刷题模式</p>
+                <p class="p2">选择章节进入答题</p>
+                <p class="p2" style="margin-top: -7%">已收录1K+题</p>
             </div>
-            <div class="function1">
+            <div class="function1 shugouExam">
                 <img src="images/tab/pic_fun_crm_detailed_002.gif"/>
-                <p class="p1">考试模式</p>
+                <p class="p1">在线考试</p>
                 <p class="p2">随机生成试题</p>
+            </div>
+            <div class="function1 shugouGraduate">
+                <img src="images/tab/pic_fun_k_detailed_003.gif"/>
+                <p class="p1">考研专题</p>
+                <p class="p2">收录考研题库</p>
             </div>
         </div>
         <div id="xmgl" class="soft_con2" style="display:none">
@@ -126,6 +142,7 @@
 
     </div>
 
+</div>
 </div>
 
 </body>

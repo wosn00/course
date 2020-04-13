@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索结果</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <!--layui-->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <script>
+        //导航 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+    </script>
+    <script type="text/javascript" src="/js/chapter/jquery.min.js"></script>
+
+    <!--按钮-->
+    <link rel="stylesheet" href="/css/button.css">
+    <!--表格css-->
+    <link rel="stylesheet" href="/css/choice.css">
+
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item"><span>欢迎登录，</span><span th:text="${session.user.name}"></span></li>
+    <li style="float: right" class="layui-nav-item">
+        <a href=""><img src="/images/headimg.jpg" class="layui-nav-img">我</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="/personal_infomation">修改信息</a></dd>
+            <dd><a href="/logout">退出登录</a></dd>
+        </dl>
+    </li>
+    <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
+    <li style="float: right" class="layui-nav-item layui-this"><a href="/search">搜搜题</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/main">课程主页</a></li>
+    <li style="float: right" class="layui-nav-item" shiro:hasRole="1"><a href="/back_system">后台系统</a></li>
+
+</ul>
+
+
+
+<script type="text/javascript" src="/js/fuzzySearch.js"></script>
+<div class="layui-row">
+    <table class="layui-table choice-table">
+        <thead>
+        <tr>
+            <th style="display: none">题型</th>
+            <th style="display: none">课程</th>
+            <th style="display: none">章节</th>
+            <th style="width: 80px;text-align: center">题号</th>
+            <th style="text-align: center">题目</th>
+            <th style="width: 9%;text-align: center">点击作答</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <!--存放分页加载数据-->
+        </tbody>
+
+    </table>
+    <div class="page"></div>
+</div>
+
+<span id="count" style="display:none"></span>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon">
+    <!--导航样式-->
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <!--layui样式-->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+    <!--导航和表单 依赖 element 模块，否则无法进行功能性操作-->
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+        });
+    </script>
+    <!--jq-->
+    <script type="text/javascript" src="/js/chapter/jquery.min.js"></script>
+    <!--搜索-->
+    <link rel="stylesheet" href="/css/search/style.css">
+    <script src="/js/search.js"></script>
+</head>
+<body background="/images/search_back.jpg">
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item"><span>欢迎登录，</span><span th:text="${session.user.name}"></span></li>
+    <li style="float: right" class="layui-nav-item">
+        <a href=""><img src="/images/headimg.jpg" class="layui-nav-img">我</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="/personal_infomation">修改信息</a></dd>
+            <dd><a href="/logout">退出登录</a></dd>
+        </dl>
+    </li>
+    <li style="float: right" class="layui-nav-item"><a href="/personal_infomation">个人中心</a></li>
+    <li style="float: right" class="layui-nav-item layui-this"><a href="/search">搜搜题</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/questions">错题集</a></li>
+    <li style="float: right" class="layui-nav-item"><a href="/main">课程主页</a></li>
+    <li style="float: right" class="layui-nav-item" shiro:hasRole="1"><a href="/back_system">后台系统</a></li>
+
+</ul>
+<div class="search d1">
+    <form class="layui-form">
+        <input id="fuzzy" name="searchText" type="text" placeholder="支持模糊搜索..." style="font-size: 19px" onkeydown="if(event.keyCode==13)return false;">
+        <button type="button" id="sub"><i class="layui-icon layui-icon-search" style="font-size: 20px"></i></button>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="font-size: 18px">题型:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" value="choice" title="选择题" checked>
+                <input type="radio" name="type" value="summary" title="简答题">
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

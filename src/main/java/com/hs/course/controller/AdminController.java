@@ -5,6 +5,8 @@ import com.hs.course.daogenerator.SummaryGeneratorMapper;
 import com.hs.course.domaingenerator.ChoiceGenerator;
 import com.hs.course.domaingenerator.SummaryGenerator;
 import com.hs.course.entity.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ public class AdminController {
     private ChoiceGeneratorMapper choiceGeneratorMapper;
     @Autowired
     private SummaryGeneratorMapper summaryGeneratorMapper;
+    private static Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     /**
      * 进入选择题编辑页
@@ -26,6 +29,7 @@ public class AdminController {
      */
     @RequestMapping("/edit_choice/{id}")
     public String editChoice(@PathVariable("id") int id,int chapter, HttpSession session){
+        logger.info("进入选择题编辑页,id:{},chapter:{}",id,chapter);
         ChoiceGenerator choice = choiceGeneratorMapper.selectByPrimaryKey(id);
         session.setAttribute("editChoice",choice);
         session.setAttribute("backChapter",chapter);
@@ -37,6 +41,7 @@ public class AdminController {
      */
     @RequestMapping("/edit_summary/{id}")
     public String editSummary(@PathVariable("id") int id,int chapter, HttpSession session){
+        logger.info("进入简答题编辑页,id:{},chapter:{}",id,chapter);
         SummaryGenerator summaryGenerator = summaryGeneratorMapper.selectByPrimaryKey(id);
         session.setAttribute("editSummary",summaryGenerator);
         session.setAttribute("backChapter",chapter);
@@ -48,6 +53,7 @@ public class AdminController {
     @RequestMapping("/updateChoice")
     @ResponseBody
     public Object updateChoice(ChoiceGenerator choiceGenerator){
+        logger.info("更新选择题,id:{}",choiceGenerator.getId());
         choiceGeneratorMapper.updateByPrimaryKeySelective(choiceGenerator);
         return Result.builder()
                 .code(1)
@@ -60,6 +66,7 @@ public class AdminController {
     @RequestMapping("/updateSummary")
     @ResponseBody
     public Object updateChoice(SummaryGenerator summaryGenerator){
+        logger.info("更新简答题,id:{}",summaryGenerator.getId());
         summaryGeneratorMapper.updateByPrimaryKeySelective(summaryGenerator);
         HashMap<Object, Object> map = new HashMap<>();
         return Result.builder()
@@ -67,6 +74,7 @@ public class AdminController {
                 .build();
         //2333
     }
+
 
 
 }

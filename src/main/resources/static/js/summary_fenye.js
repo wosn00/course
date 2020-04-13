@@ -14,13 +14,17 @@ function showReocrd(pageNo, pageSize) {
             for (var i = 0; i < data.list.length; i++) {
                 var td = $("<td></td>").text(data.list[i].countno);
                 var td2 = $("<td></td>").text(data.list[i].title);
-                var td_in = $("<td onclick='jump_detail(this)' style='cursor: pointer'></td>").html('<i class="layui-icon layui-icon-right" "></i>')
+                var td_in = $("<td onclick='jump_detail(this)' style='cursor: pointer'></td>").html('<span style="color: blue;text-decoration: underline">进入答题</span>')
                 var td3 = $("<td style='display: none'></td>").text(data.list[i].id);
                 var td4 = $("<td style='display: none'></td>").text(data.list[i].course);
                 var td5 = $("<td style='display: none'></td>").text(data.list[i].chapter);
                 //管理员的修改权限
                 var td6 = $("<td onclick='update_this(this)' style='cursor: pointer;text-align: center'></td>").html('<i class="layui-icon layui-icon-edit" "></i>');
                 var tr = $("<tr></tr>").append(td, td2).append(td3).append(td4).append(td5).append(td_in).append(td6);
+                let auth = $("#update-auth").text();
+                if (auth === ""){
+                    var tr = $("<tr></tr>").append(td, td2).append(td3).append(td4).append(td5).append(td_in);
+                }
                 $('tbody').append(tr);
             }
             $("#count").text(data.count)

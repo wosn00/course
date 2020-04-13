@@ -18,6 +18,8 @@ import com.hs.course.entity.Summary;
 import com.hs.course.entity.User;
 import com.hs.course.request.ChoiceQueryReq;
 import com.hs.course.request.ExamQueryReq;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,19 +52,21 @@ public class ExamController {
     private UserGeneratorMapper userGeneratorMapper;
     @Autowired
     private AnswerMatching answerMatching;
+    private static Logger logger = LoggerFactory.getLogger(ExamController.class);
 
     /**
+     * 复用
      * @param course 课程
      * @return 题目
      */
     @RequestMapping("/exam_details")
     @ResponseBody
     public Object exam(String course) {
+        logger.info("进入考试页面,课程:{}",course);
         Map<String, Object> query = new HashMap<>();
         int num = 20;
         query.put("num", num);
         HashMap<Object, Object> res = new HashMap<>();
-        if (course.equals("1")) {
             query.put("course", course);
             List<Choice> choices = choiceMapper.selByRand(query);
             //为每条选择题加上从1开始的序号
@@ -77,10 +81,6 @@ public class ExamController {
                 summaries.get(i).setCountno(i + 1);
             }
             res.put("summaries", summaries);
-        } else {
-            //TODO
-            //添加数据结构课程的考试题
-        }
         return res;
     }
 
@@ -120,8 +120,7 @@ public class ExamController {
                 try {
                     questionsGeneratorMapper.insertSelective(question);
                 } catch (Exception e) {
-                    //TODO
-                    System.out.println("========Duplicate choice========");
+                    logger.info("========用户出现重复做题========");
                 }
             }
         }
@@ -141,8 +140,7 @@ public class ExamController {
                 try {
                     questionsGeneratorMapper.insertSelective(question);
                 } catch (Exception e) {
-                    //TODO
-                    System.out.println("=========Duplicate summary===========");
+                    logger.info("========用户出现重复做题========");
                 }
             }
 
@@ -151,6 +149,7 @@ public class ExamController {
         DecimalFormat dF = new DecimalFormat("0");
         String summaryRate = dF.format( summarytag / 2 * 100);
         HashMap<Object, Object> map = new HashMap<>(16);
+        logger.info("用户考试成绩：{}",score);
         map.put("score", score);
         map.put("choiceRate", choiceRate);
         map.put("summaryRate", summaryRate);

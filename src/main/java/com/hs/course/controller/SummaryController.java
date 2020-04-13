@@ -3,10 +3,15 @@ package com.hs.course.controller;
 import com.hs.course.courseService.AnswerMatching;
 import com.hs.course.courseService.SummaryService;
 import com.hs.course.daogenerator.SummaryGeneratorMapper;
+import com.hs.course.daogenerator.TotalAnswerGeneratorMapper;
 import com.hs.course.domaingenerator.SummaryGenerator;
+import com.hs.course.domaingenerator.TotalAnswerGenerator;
 import com.hs.course.entity.Result;
 import com.hs.course.entity.Summary;
+import com.hs.course.entity.User;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +34,9 @@ public class SummaryController {
     private AnswerMatching answerMatching;
     @Autowired
     private SummaryGeneratorMapper summaryGeneratorMapper;
+    @Autowired
+    private TotalAnswerGeneratorMapper totalAnswerGeneratorMapper;
+    private static Logger logger = LoggerFactory.getLogger(SummaryController.class);
 
     /**
      * session存章节，int型
@@ -36,13 +44,15 @@ public class SummaryController {
      * @param chapter 章节
      */
     @RequestMapping("/jizu_summary/{chapter}")
-    public String choiceQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
+    public String summaryQuestion(@PathVariable("chapter") int chapter, HttpSession session) {
+        logger.info("进入简答题，章节：{}",chapter);
         session.setAttribute("jizuChapter", chapter);
         return "jizu_summary";
     }
 
     /**
-     * 可复用的简答题分页查询
+     * 复用
+     * 简答题分页查询
      *
      * @return 页数+简答题List
      */
@@ -58,14 +68,15 @@ public class SummaryController {
     }
 
     /**
-     * 选择题详情，通过题目id或题目countno查询
+     * 简答题详情，通过题目id或题目countno查询
      *
      * @param id      题目id
      * @param countno 题目题号
      */
     @RequestMapping("/summary_detail/{course}/{chapter}/{id}")
-    public String choiceDetail(@PathVariable("id") int id, @PathVariable("chapter") int chapter
+    public String summaryDetail(@PathVariable("id") int id, @PathVariable("chapter") int chapter
             , @PathVariable("course") int course, @RequestParam(required = false) Integer countno, HttpSession session) {
+        logger.info("进入简答题答题，课程：{}，章节：{}，id：{}",course,chapter,id);
         Summary summary;
         if (countno != null) {
             summary = summaryService.selCountno(course, chapter, -1, countno);
@@ -94,7 +105,11 @@ public class SummaryController {
      */
     @RequestMapping("/summaryJudge")
     @ResponseBody
-    public Result<Map> summaryJudge(int id, String answer) {
+    public Result<Map> summaryJudge(int id, String answer,HttpSession session) {
+        logger.info("简答题回答，id：{}，回答：{}",id,answer);
+        //获得userName
+        User user = (User) session.getAttribute("user");
+        String userName=user.getName();
         SummaryGenerator summaryGenerator = summaryGeneratorMapper.selectByPrimaryKey(id);
         Map<Object, Object> map = new HashMap<>(16);
         if (StringUtils.isBlank(answer)) {
@@ -107,8 +122,23 @@ public class SummaryController {
                     .build();
         }
         Float matching = answerMatching.matching(answer, summaryGenerator.getKeyword());
+        logger.info("简答题回答匹配度：{}",matching);
         map.put("matching", matching * 100);
         map.put("standAnswer", summaryGenerator.getAnswer());
+        //存入答题数量表
+        TotalAnswerGenerator totalAnswerGenerator = new TotalAnswerGenerator();
+        totalAnswerGenerator.setUsername(userName);
+        totalAnswerGenerator.setProblemid(id);
+        Float v = matching * 100;
+        totalAnswerGenerator.setResult(v.intValue());
+        totalAnswerGenerator.setType("summary");
+        totalAnswerGenerator.setCourse(1);
+        try {
+            totalAnswerGeneratorMapper.insertSelective(totalAnswerGenerator);
+        } catch (Exception e) {
+           logger.info("========出现简答题重复作答========");
+        }
+
         return Result.<Map>builder()
                 .code(1)
                 .message("响应成功")
